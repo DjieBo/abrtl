@@ -1,0 +1,79 @@
+﻿@model Hermina_ABRTL.ViewModel.modifyAcc
+
+<div class="hm-reg-layout">
+    <div class="hm-row hm-regs-rs">
+        <span onclick="BacktoRegAccount()"><i class="fas fa-chevron-left"></i> Back to Account Page</span>
+    </div>
+    <div class="hm-regRS-layout">
+        <div class="hm-reg hm-reg-wrap">
+            <h2>Modify Account <br> Management ABRTL-RL</h2>
+            <div class="hm-reg-form">
+                <form method="post" id="formregister">
+                    <div class="hm-reg-row-form">
+                        <div class="hm-reg-form-col">
+                            <label>Province</label><br>
+                            @Html.TextBoxFor(x => x.provinceMDF, new { id = "provinceMDF", @class = "hm-col-text-field", @placeholder = "Provinsi", @readonly = "true" })
+                            @*<select id="provinceMDF" name="province" placeholder="Select Province">
+                                    <option disabled selected class="option-plhdr"> Select Provice</option>
+                                    <option> DKI Jakarta</option>
+                                </select>*@
+                        </div>
+                        <div class="hm-reg-form-col">
+                            <label>Region</label><br>
+                            @Html.TextBoxFor(x => x.regionMDF, new { id = "regionMDF", @class = "hm-col-text-field", @placeholder = "Kota", @readonly = "true" })
+                            @*<select id="regionMDF" name="region" placeholder="Select Region">
+                                    <option disabled selected class="option-plhdr"> Select Region</option>
+                                    <option> Regional 1</option>
+                                </select>*@
+                        </div>
+                    </div>
+                    <div class="hm-reg-row-form">
+                        <div class="hm-reg-form-col">
+                            <label>Parameter</label><br>
+                            @Html.TextBoxFor(x => x.parameterMDF, new { id = "parameterMDF", @class = "hm-col-text-field", @placeholder = "IDRS", @readonly = "true" })
+                            @*<input type="text" name="parameter" id="parameterMDF" class="hm-col-text-field" placeholder="Parameter" />*@
+                        </div>
+                        <div class="hm-reg-form-col">
+                            <label>Position</label><br>
+                            @Html.TextBoxFor(x => x.positionMDF, new { id = "positionMDF", @class = "hm-col-text-field", @placeholder = "Position", @readonly = "true" })
+                            @*<select id="positionMDF" name="position" placeholder="Select Region">
+                                    <option disabled selected class="option-plhdr"> Select Position</option>
+                                    <option> Regional 1</option>
+                                </select>*@
+                        </div>
+                    </div>
+                    <div class="hm-reg-row-form">
+                        <label>Name</label><br>
+                        @Html.TextBoxFor(x => x.nameMDF, new { id = "nameMDF", @class = "hm-col-text-field", @placeholder = "Input your name", @readonly = "true" })
+                        @*<input type="text" name="name" id="nameMDF" style="width:95%;padding:2% 3%;" placeholder="Input your name" />*@
+                    </div>
+                    <div class="hm-reg-row-form">
+                        <div class="hm-reg-form-col">
+                            <label>NIK</label><br>
+                            @Html.TextBoxFor(x => x.nikMDF, new { id = "nikMDF", @class = "hm-col-text-field", @placeholder = "ID 93034 XXXX XXXX", @readonly = "true" })
+                            @*<input type="text" name="nik" id="nikMDF" class="hm-col-text-field" placeholder="ID 93034 XXXX XXXX" />*@
+                        </div>
+                        <div class="hm-reg-form-col">
+                            <label>Email</label><br>
+                            @Html.TextBoxFor(x => x.emailMDF, new { id = "emailMDF", @class = "hm-col-text-field", @placeholder = "Input Email Here" })
+                            @*<input type="text" name="email" id="emailMDF" class="hm-col-text-field" placeholder="Input Email Here" />*@
+                        </div>
+                    </div>
+                    <div class="hm-reg-row-form">
+                        <div class="hm-reg-form-col">
+                            <label>Handphone</label><br>
+                            @Html.TextBoxFor(x => x.phoneMDF, new { id = "phoneMDF", @class = "hm-col-text-field", @placeholder = "+62 XXXX XXXX XXXX" })
+                            @*<input type="text" name="phone" id="phoneMDF" class="hm-col-text-field" placeholder="+62 XXXX XXXX XXXX" />*@
+                        </div>
+                        <div class="hm-reg-form-col">
+                            <label>Password</label><br>
+                            @Html.TextBoxFor(x => x.passwordMDF, new { id = "passwordMDF", @class = "hm-col-text-field", @placeholder = "Input Password Here" })
+                            @*<input type="password" name="password" id="passwordMDF" class="hm-col-text-field" placeholder="Input Password Here" />*@
+                        </div>
+                    </div>
+                    <div class="hm-reg-row-form button-area"><button onclick="SaveModify()"> Modify Account</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

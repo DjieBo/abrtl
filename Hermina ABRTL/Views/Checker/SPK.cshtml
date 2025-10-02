@@ -1,0 +1,94 @@
+﻿@model Hermina_ABRTL.ViewModel.DataSPK
+
+<div class="hm-spk-modal">
+    <div class="hm-spk-frm">
+        <div class="hm-row hm-spk-head-modal"><span class="hm-close-modalPic hm-spk-mclose">X</span></div>
+        <div class="hm-row hm-spk-body-modal">
+            @Html.Partial("SPKCamera")
+        </div>
+    </div>
+</div>
+<div class="hm-row hm-spk-title">
+    <h3>List Job Report @Model.Round <span id="SPKPeriode">@Model.Periode</span></h3>
+    <div class="hm-spk-time" id="SPKtimer">Sisa Waktu Pengerjaan SPK : <span id="SPKCd" data-sttime="@Model.TimeStart"></span></div>
+</div>
+<div class="hm-row hm-rabform">
+    <div class="hm-row hm-rab-head">
+        <div class="hm-rab-col-1 hm-rab-head-style">SubArea</div>
+        <div class="hm-rab-col-2 hm-rab-merge-style">Item<br>Material</div>
+        <div class="hm-rab-col-3 hm-rab-head-style">Penilaian</div>
+        <div class="hm-rab-col-4 hm-rab-head-style">Nilai</div>
+        <div class="hm-rab-col-5 hm-rab-head-style">Keterangan</div>
+        <div class="hm-rab-col-10 hm-rab-merge-style">Batasan<br>Biaya</div>
+        <div class="hm-rab-col-11 hm-rab-head-style">Biaya</div>
+        <div class="hm-rab-col-12 hm-rab-head-style">Selisih</div>
+        <div class="hm-rab-col-13 hm-rab-merge-style">Picture (Before)</div>
+        <div class="hm-rab-col-13 hm-rab-merge-style">Picture (After)</div>
+    </div>
+    <div class="hm-row hm-rab-body">
+        <div class="hm-rab-list">
+            @foreach (var a in Model.ListSPK)
+            {
+                var pn = a.Penilaian.Length;
+                var itm = a.Item.Length;
+                var kt = a.Keterangan.Length;
+                var node = "..";
+                <input type="hidden" name="idSPK" id="IDSPK" value="@a.ID" />
+                <div class="hm-rab-col-1 hm-spk-font hm-rab-body-style">@a.SubArea</div>
+                <div class="hm-rab-col-2 hm-spk-font hm-rab-body-style hm-rab-alg-center">
+                    @if (itm < 17){@a.Item }else if (itm >= 17){var subItm = a.Item.Substring(0, 17); @subItm}
+                </div>
+                <div class="hm-rab-col-3 hm-spk-font hm-rab-body-style">
+                    @if (pn < 20){@a.Penilaian }else if (pn >= 20){var subPn = a.Penilaian.Substring(0, 20); @subPn @node}
+                </div>
+                <div class="hm-rab-col-4 hm-spk-font hm-rab-body-style hm-rab-alg-center">@a.Nilai</div>
+                <div class="hm-rab-col-5 hm-spk-font hm-rab-body-style">
+                    @if (kt < 25){@a.Keterangan }else if (kt > 25){var subKT = a.Keterangan.Substring(0, 25); @subKT @node;}
+                </div>
+                <div class="hm-rab-col-10 hm-spk-font hm-rab-body-style hm-rab-alg-right">@a.HargaDasar</div>
+                <div class="hm-rab-col-11 hm-spk-font hm-rab-body-style hm-rab-alg-right">@a.HargaInput</div>
+                <div class="hm-rab-col-12 hm-spk-font hm-rab-body-style hm-rab-alg-right">@a.SelisihHarga</div>
+                <div class="hm-rab-col-13 hm-rab-symbol-style hm-rab-alg-center"><a class="hm-image-view" id="Image@(a.ID)" href="@Url.Action("BRABImage", "Checker", new { ID = a.ID, Round = a.Round, Periode = a.Periode})" target="_blank"><i class="fas fa-image"></i></a></div>
+                <div class="hm-rab-col-13 hm-rab-symbol-style hm-rab-alg-center hm-spk-cam">
+                    @if (a.PictureAf != null && a.PictureAf != "")
+                    {
+                        <a class="hm-image-view" id="ImageAf@(a.ID)" href="@Url.Action("SPKImage", "Checker", new { IDUnix = a.IDUnix, Round = a.Round, Periode = a.Periode})" target="_blank">
+                            <i class="fas fa-image"></i>
+                        </a>
+                    }else{ <i onclick="SPKCam('@a.ID', '@a.Round', '@a.Periode', '@a.IDUnix')" class="fas fa-upload"></i> }
+                </div>
+            }
+        </div>
+    </div>
+    
+</div>
+<div class="hm-row hm-attnt-rab"><h3>Maaf Data ini hanya dapat di tampilkan dalam layar lanscape atau desktop</h3></div>
+<div class="hm-row hm-rab-btn hm-spk-btn" id="btnplcSPK">
+    <button id="SubmitSPK" onclick="SubmitSPK('@Model.Round', '@Model.Periode')">Submit</button>
+    @Html.ActionLink("Job Report", "SPKPdf", new { Periode = Model.Periode, Round = Model.Round }, new { @class = "hm-print-btn", id = "printPDFSPK", @target = "_blank", @style = "display:none" });
+</div>
+<script src="~/Scripts/SPKTime.js"></script>
+
+<script type="text/javascript">
+    let TxtPeriode = document.getElementById("SPKPeriode").textContent;
+    let Bln = parseInt(TxtPeriode.slice(-2));
+    let Thn = TxtPeriode.substring(0, 4);
+    const monthNames = ["", "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+    let BulanSPK = monthNames[Bln];
+    let Date = BulanSPK + " " + Thn;
+    document.getElementById("SPKPeriode").innerHTML = Date;
+
+    function SubmitSPK(round, periode) {
+        $.ajax({
+            url: "/Checker/SPKSubmit/",
+            type: "POST",
+            data: { Round: round, Periode: periode },
+            success: function (result) {
+                $('#hmPartView').html(result);
+            }
+        });
+    }
+</script>
+

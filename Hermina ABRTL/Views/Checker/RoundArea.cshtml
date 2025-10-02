@@ -1,0 +1,140 @@
+﻿@model Hermina_ABRTL.ViewModel.DataRSVM
+<div class="hm-head-list-data">
+    <ul class="table-head">
+        <li class="hm-col-list-1 hm-col-list-style">Sub Area</li>
+        <li class="hm-col-list-2 hm-col-list-style">Item</li>
+        <li class="hm-col-list-3 hm-col-list-style">Komponen</li>
+        <li class="hm-col-list-4 hm-col-list-style" style="padding:0">
+            <div class="hm-col-sub-1">Nilai</div>
+            <ul class="hm-col-sub-2">
+                <li class="hm-sub-child">A</li>
+                <li class="hm-sub-child" style="border-left:1px solid white;border-right:1px solid white">B</li>
+                <li class="hm-sub-child">C</li>
+            </ul>
+        </li>
+        <li class="hm-col-list-5 hm-col-list-style">Parameter</li>
+        <li class="hm-col-list-7 hm-col-list-style">Keterangan</li>
+        <li class="hm-col-list-6 hm-col-list-style">Capture Picture (Before)</li>
+    </ul>
+</div>
+<div class="hm-body-list-data">
+    <script>
+        var scrolID = document.getElementById("ResultKomponen");
+        $(scrolID).scroll(function () {
+            sessionStorage.scrollTop = $(this).scrollTop();
+        });
+        $(document).ready(function () {
+            if (sessionStorage.scrollTop != "undefined") {
+                $(scrolID).scrollTop(sessionStorage.scrollTop);
+            }
+        });
+    </script>
+    <ul class="table-body" id="ResultKomponen">
+        @if (Model.listKomponen != null)
+        {
+            foreach (var item in Model.listKomponen)
+            {
+                <li>
+                    <div class="hm-col-body-1 hm-col-body-style">@item.SubArea </div>
+                    <div class="hm-col-body-2 hm-col-body-style">@item.Item</div>
+                    <div class="hm-col-body-3 hm-col-body-style">@item.Komponen</div>
+                    <div class="hm-col-body-4 hm-col-body-style">
+                        @if (item.Nilai == "A"){
+                            <div class="hm-col-body-chl"><input type="radio" onchange="Nilai('A', '@(item.Nilai)', '@(item.IDKomponen)', '@item.Round')" name="@item.IDKomponen" value="A" checked /></div>
+                        }else{
+                            <div class="hm-col-body-chl"><input type="radio" onchange="Nilai('A', '@(item.Nilai)', '@(item.IDKomponen)', '@item.Round')" name="@item.IDKomponen" value="A" /></div>
+                        }
+                        @if (item.Nilai == "B"){
+                            <div class="hm-col-body-chl hm-col-mid-body-chl"><input type="radio" onchange="Nilai('B', '@(item.Nilai)', '@(item.IDKomponen)', '@item.Round')" name="@item.IDKomponen" value="B" checked /></div>
+                        }else{
+                            <div class="hm-col-body-chl hm-col-mid-body-chl"><input type="radio" onchange="Nilai('B', '@(item.Nilai)', '@(item.IDKomponen)', '@item.Round')" name="@item.IDKomponen" value="B" /></div>
+                        }
+
+                        @if (item.Nilai == "C"){
+                            <div class="hm-col-body-chl"><input type="radio" name="@item.IDKomponen" onchange="Nilai('C', '@(item.Nilai)', '@(item.IDKomponen)', '@item.Round')" value="C" checked /></div>
+                        }else{
+                            <div class="hm-col-body-chl"><input type="radio" name="@item.IDKomponen" onchange="Nilai('C', '@(item.Nilai)', '@(item.IDKomponen)', '@item.Round')" value="C" /></div>
+                        }
+                    </div>
+                    <div class="hm-col-body-5 hm-col-body-style">
+                        <select name="parameter" onchange="Parameter(this.value)" id="param@(item.IDKomponen)" disabled>
+                            @if (item.ParamValue == null || item.ParamValue == ""){
+                                if (item.Parameter == "Aman"){
+                                    <option value=""> Select </option>
+                                    <option value="Aman"> Aman </option>
+                                    <option value="Tidak Aman">Tidak Aman </option>
+                                }else if (item.Parameter == "Rapih"){
+                                    <option value=""> Select </option>
+                                    <option value="Rapih"> Rapih </option>
+                                    <option value="Tidak Rapih">Tidak Rapih </option>
+                                }else if (item.Parameter == "Tampak Baru" || item.Parameter == "Tampak Baru"){
+                                    <option value=""> Select </option>
+                                    <option value="Tampak Baru"> Tampak baru  </option>
+                                    <option value="Tidak Tampak Baru">Tidak Tampak baru  </option>
+                                }else if (item.Parameter == "Ramah Lingkungan"){
+                                    <option value=""> Select </option>
+                                    <option value="Ramah Lingkungan"> Ramah Lingkungan </option>
+                                    <option value="Tidak Ramah Lingkungan">Tidak Ramah Lingkungan </option>
+                                }else if (item.Parameter == "Bersih"){
+                                    <option value=""> Select </option>
+                                    <option value="Bersih"> Bersih </option>
+                                    <option value="Tidak Bersih">Tidak Bersih </option>
+                                }
+                            }else if (item.ParamValue != null || item.ParamValue != ""){
+                                if (item.ParamValue == "Aman"){
+                                    <option value="Aman"> Aman </option>
+                                    <option value="Tidak Aman">Tidak Aman </option>
+                                }else if (item.ParamValue == "Rapih"){
+                                    <option value="Rapih"> Rapih </option>
+                                    <option value="Tidak Rapih">Tidak Rapih </option>
+                                }else if (item.ParamValue == "Tampak Baru" || item.Parameter == "Tampak baru"){
+                                    <option value="Tampak Baru"> Tampak baru  </option>
+                                    <option value="Tidak Tampak Baru">Tidak Tampak baru  </option>
+                                }else if (item.ParamValue == "Ramah Lingkungan"){
+                                    <option value="Ramah Lingkungan"> Ramah Lingkungan </option>
+                                    <option value="Tidak Ramah Lingkungan">Tidak Ramah Lingkungan </option>
+                                }else if (item.ParamValue == "Bersih"){
+                                    <option value="Bersih"> Bersih </option>
+                                    <option value="Tidak Bersih">Tidak Bersih </option>
+                                }else if (item.ParamValue == "Tidak Aman"){
+                                    <option value="Tidak Aman">Tidak Aman </option>
+                                    <option value="Aman"> Aman </option>
+                                }else if (item.ParamValue == "Tidak Rapih"){
+                                    <option value="Tidak Rapih">Tidak Rapih </option>
+                                    <option value="Rapih"> Rapih </option>
+                                }else if (item.ParamValue == "Tidak Tampak Baru" || item.Parameter == "Tidak Tampak baru"){
+                                    <option value="Tidak Tampak Baru">Tidak Tampak baru  </option>
+                                    <option value="Tampak Baru"> Tampak baru  </option>
+                                }else if (item.ParamValue == "Tidak Ramah Lingkungan"){
+                                    <option value="Tidak Ramah Lingkungan">Tidak Ramah Lingkungan </option>
+                                    <option value="Ramah Lingkungan"> Ramah Lingkungan </option>
+                                }else if (item.ParamValue == "Tidak Bersih"){
+                                    <option value="Tidak Bersih">Tidak Bersih </option>
+                                    <option value="Bersih"> Bersih </option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="hm-col-body-7 hm-col-body-style">
+                        @if (item.Keterangan != null){
+                            <input type="text" id="Info@(item.IDKomponen)" name="Info_@item.IDKomponen" oninput="InfoNotiv(this.value)" value="@item.Keterangan" autocomplete="off" disabled />
+                        }else{
+                            <input type="text" id="Info@(item.IDKomponen)" name="Info_@item.IDKomponen" oninput="InfoNotiv(this.value)" autocomplete="off" value="" disabled />}
+                    </div>
+                    <div class="hm-col-body-6 hm-col-body-style">
+                        @if (item.IDUnix == null || item.IDUnix == ""){
+                            <div class="hm-camera-view" id="Camera@(item.IDKomponen)"><i class="fas fa-upload" id="CameraSymbol@(item.IDKomponen)"></i> <font id="font@(item.IDKomponen)">Upload here</font></div>
+                        }else{
+                            <a class="hm-image-view" id="Image@(item.IDKomponen)" href="@Url.Action("ImageView", "Checker", new { ID = item.IDKomponen})" target="_blank"> <i class="fa fa-file-image-o" aria-hidden="true"></i> <font>View Image</font> </a>
+                            <div class="hm-camera-view" id="Camera@(item.IDKomponen)" style="display:none"><i class="fas fa-upload" id="CameraSymbol@(item.IDKomponen)"></i> <font id="font@(item.IDKomponen)">Upload here</font></div>
+                        }
+                    </div>
+                </li>
+            }
+        }
+    </ul>
+</div>
+<span class="VisibleRound ConsdDataRound" data-total="@Model.TotalData" data-check="@Model.TotalCheck"></span>
+<div class="hm-row hm-btn-area" id="SubmitBTNchecker"></div>
+<script src="~/Scripts/SubmitCon.js"></script>
+

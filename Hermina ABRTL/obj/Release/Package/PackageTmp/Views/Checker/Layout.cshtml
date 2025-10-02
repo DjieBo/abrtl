@@ -1,0 +1,50 @@
+﻿@model Hermina_ABRTL.ViewModel.DashboardVM
+
+@if (TempData["Message"] != null)
+{
+    @*<script>
+        alert("@TempData["Message"]");
+    </script>*@
+}
+else
+{
+    <header>
+        <div class="hm-header-label hm-header-style">
+            <h3>Checker</h3>
+            <span>@Model.NamaRS</span>
+        </div>
+        <div class="hm-header-navigator hm-header-style">
+            <div class="hm-desktop-mode">
+                <ul class="nav-left">
+                    <li id="Dashboard" class="live" onclick="Nav(this.id)">Dashboard</li>
+                    <li id="Register" onclick="Nav(this.id)">Register</li>
+                    <li id="UpdateFacilities" onclick="Nav(this.id)">Update Facilities</li>
+                    <li id="FormChecker" onclick="Nav(this.id)">Form Checker</li>
+                    <li id="RAB" onclick="Nav(this.id)">RAB</li>
+                    <li id="SPKLayout" onclick="Nav(this.id)">Job Report</li>
+                    @*<li id="Certification">Certification</li>*@
+                </ul>
+                <ul class="nav-right">
+                    <li onclick="Logout()">Log out</li>
+                </ul>
+            </div>
+            <div class="hm-mobile-mode">
+                <span onclick="MobileBTN()"><i class="fas fa-bars"></i></span>
+                <ul id="mobileNAV">
+                    <li id="Dashboard" class="live" onclick="Nav(this.id)">Dashboard</li>
+                    <li id="Register" onclick="Nav(this.id)">Register</li>
+                    <li id="UpdateFacilities" onclick="Nav(this.id)">Update Facilities</li>
+                    <li id="FormChecker" onclick="Nav(this.id)">Form Checker</li>
+                    <li id="RAB" onclick="Nav(this.id)">RAB</li>
+                    <li id="SPKLayout" onclick="Nav(this.id)">Job Report</li>
+                    @*<li id="Certification">Certification</li>*@
+                    <li onclick="Logout()">Log out</li>
+                </ul>
+            </div>
+        </div>
+    </header>
+}
+    <section id="hmPartView">
+        @Html.Partial("Dashboard", Model)
+    </section>
+

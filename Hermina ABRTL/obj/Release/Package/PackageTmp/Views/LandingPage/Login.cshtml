@@ -1,0 +1,36 @@
+﻿@if (TempData["MsgPass"] != null)
+{
+    <script>alert("@TempData["MsgPass"]");</script>
+    <script src="~/Scripts/SessionUser.js"></script>
+}else if (TempData["Message"] != null)
+{
+    <script>alert("@TempData["Message"]");</script>
+}
+
+<section class="screen">
+    <div class="hm-form-login">
+        <form action="/LandingPage/Login" method="post" class="hm-form-screen">
+            @Html.AntiForgeryToken();
+            <div class="hm-login-head-form hm-style-form">
+                <div class="hm-form-logo"><img src="~/Content/img/logo-hermina-group.png" /></div>
+                <h2>ABRTL-RL<br>Management System</h2>
+            </div>
+            <div class="hm-login-body-form hm-style-form">
+                <p><input type="text" name="username" placeholder="ID Register" autocomplete="off" /></p>
+                <p><input type="password" name="password" placeholder="Password" autocomplete="off" /></p>
+                <p><a href="/LandingPage/ResetPassword/">Lupa Password?</a></p>
+            </div>
+            <div class="hm-login-footer-form hm-style-form">
+                <input type="submit" name="login" value="Login" />
+            </div>
+            <div class="hm-cpr-apps hm-style-form"> Copyright&#169; 2020 Hermina Hospital Group</div>
+        </form>
+    </div>
+    <!---------------------------->
+    <div class="hm-frg" id="forGt">
+        <div class="hm-frg-modal">
+            <div id="formclrSES"></div>
+        </div>
+    </div>
+    <!---------------------------->
+</section>

@@ -1,0 +1,181 @@
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\ApplicationInsights.config
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\csc.exe
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\csc.exe.config
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\csc.rsp
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\csi.exe
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\csi.rsp
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\System.AppContext.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\System.Collections.Immutable.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\System.IO.FileSystem.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\System.Reflection.Metadata.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\vbc.exe
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\vbc.exe.config
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\vbc.rsp
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\VBCSCompiler.exe
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\roslyn\VBCSCompiler.exe.config
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Hermina ABRTL.dll.config
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Hermina ABRTL.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Hermina ABRTL.pdb
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Antlr3.Runtime.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\EntityFramework.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\EntityFramework.SqlServer.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.AI.Agent.Intercept.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.AI.DependencyCollector.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.AI.Web.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.AI.WindowsServer.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.ApplicationInsights.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.AspNet.Identity.Core.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.AspNet.Identity.Owin.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.Owin.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.Owin.Security.Cookies.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.Owin.Security.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.Owin.Security.OAuth.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.Web.Infrastructure.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Newtonsoft.Json.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Owin.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Rotativa.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\System.Web.Helpers.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\System.Web.Mvc.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\System.Web.Optimization.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\System.Web.Razor.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\System.Web.WebPages.Deployment.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\System.Web.WebPages.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\System.Web.WebPages.Razor.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\WebGrease.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\EntityFramework.xml
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\EntityFramework.SqlServer.xml
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.AspNet.Identity.Core.xml
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.AspNet.Identity.Owin.xml
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.Owin.xml
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.Owin.Security.xml
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.Owin.Security.Cookies.xml
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.Owin.Security.OAuth.xml
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\System.Web.Helpers.xml
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\System.Web.Mvc.xml
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\System.Web.Optimization.xml
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\System.Web.Razor.xml
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\System.Web.WebPages.xml
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\System.Web.WebPages.Deployment.xml
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\System.Web.WebPages.Razor.xml
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Antlr3.Runtime.pdb
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Newtonsoft.Json.xml
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.ApplicationInsights.xml
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.AI.DependencyCollector.xml
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.AI.WindowsServer.xml
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\bin\Microsoft.AI.Web.xml
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\obj\Release\Hermina ABRTL.csproj.CoreCompileInputs.cache
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\obj\Release\Hermina ABRTL.csproj.CopyComplete
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\obj\Release\Hermina ABRTL.dll
+D:\Project\Hermina\New Template\File\20201123\Hermina ABRTL\obj\Release\Hermina ABRTL.pdb
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\ApplicationInsights.config
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\csc.exe
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\csc.exe.config
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\csc.rsp
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\csi.exe
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\csi.rsp
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\System.AppContext.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\System.Collections.Immutable.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\System.IO.FileSystem.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\System.Reflection.Metadata.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\vbc.exe
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\vbc.exe.config
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\vbc.rsp
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\VBCSCompiler.exe
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\roslyn\VBCSCompiler.exe.config
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Hermina ABRTL.dll.config
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Hermina ABRTL.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Hermina ABRTL.pdb
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Antlr3.Runtime.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\EntityFramework.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\EntityFramework.SqlServer.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.AI.Agent.Intercept.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.AI.DependencyCollector.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.AI.Web.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.AI.WindowsServer.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.ApplicationInsights.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.AspNet.Identity.Core.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.AspNet.Identity.Owin.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.Owin.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.Owin.Security.Cookies.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.Owin.Security.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.Owin.Security.OAuth.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.Web.Infrastructure.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Newtonsoft.Json.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Owin.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Rotativa.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\System.Web.Helpers.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\System.Web.Mvc.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\System.Web.Optimization.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\System.Web.Razor.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\System.Web.WebPages.Deployment.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\System.Web.WebPages.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\System.Web.WebPages.Razor.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\WebGrease.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\EntityFramework.xml
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\EntityFramework.SqlServer.xml
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.AspNet.Identity.Core.xml
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.AspNet.Identity.Owin.xml
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.Owin.xml
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.Owin.Security.xml
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.Owin.Security.Cookies.xml
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.Owin.Security.OAuth.xml
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\System.Web.Helpers.xml
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\System.Web.Mvc.xml
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\System.Web.Optimization.xml
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\System.Web.Razor.xml
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\System.Web.WebPages.xml
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\System.Web.WebPages.Deployment.xml
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\System.Web.WebPages.Razor.xml
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Antlr3.Runtime.pdb
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Newtonsoft.Json.xml
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.ApplicationInsights.xml
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.AI.DependencyCollector.xml
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.AI.WindowsServer.xml
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\bin\Microsoft.AI.Web.xml
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\obj\Release\Hermina ABRTL.csprojAssemblyReference.cache
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\obj\Release\Hermina ABRTL.csproj.CoreCompileInputs.cache
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\obj\Release\Hermina ABRTL.csproj.CopyComplete
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\obj\Release\Hermina ABRTL.dll
+D:\Project\Hermina\New Template\File\Season 2\20210825\Hermina ABRTL\obj\Release\Hermina ABRTL.pdb

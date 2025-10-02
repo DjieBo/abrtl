@@ -1,0 +1,61 @@
+﻿@model Hermina_ABRTL.ViewModel.RABListVM
+
+@if (TempData["Message"] != null)
+{
+    <script>
+        alert("@TempData["Message"]");
+    </script>
+}
+<div class="hm-layout">
+    <h2>Select Round <span id="tanggal"></span></h2>
+    @foreach (var a in Model.listCheckerVal) {
+        <span class="VisibleRound RoundValidation" 
+              data-periode="@a.Periode" 
+              data-round="@a.Round" 
+              data-statuschecker="@a.StatusChecker" 
+              data-status1="@a.Status1" 
+              data-status2="@a.Status2"></span>
+    }
+    <div class="hm-row">
+        <div class="hm-col-round">
+            <div class="hm-list-round" id="Round1Btn">
+                <div class="hm-main-round">
+                    <h4>Round 1</h4>
+                    <div id="Round1info"></div>
+                </div>
+                <div class="hm-stat-round inactived" id="Round1Status"><i id="IconRound1" class="fa fa-clock-o" aria-hidden="true"></i> <font id="StatInfoRound1">Status Inactive</font></div>
+            </div>
+            <div class="hm-list-round" id="Round2Btn">
+                <div class="hm-main-round">
+                    <h4>Round 2</h4>
+                    <div id="Round2info"></div>
+                </div>
+                <div class="hm-stat-round inactived" id="Round2Status"><i id="IconRound2" class="fa fa-clock-o" aria-hidden="true"></i> <font id="StatInfoRound2">Status Inactive</font></div>
+            </div>
+            <div class="hm-list-round" id="Round3Btn">
+                <div class="hm-main-round">
+                    <h4>Round 3</h4>
+                    <div id="Round3info"></div>
+                </div>
+                <div class="hm-stat-round inactived" id="Round3Status"><i id="IconRound3" class="fa fa-clock-o" aria-hidden="true"></i> <font id="StatInfoRound3">Status Inactive</font></div>
+            </div>
+            <div class="hm-list-round" id="Round4Btn">
+                <div class="hm-main-round">
+                    <h4>Round 4</h4>
+                    <div id="Round4info"></div>
+                </div>
+                <div class="hm-stat-round inactived" id="Round4Status"><i id="IconRound4" class="fa fa-clock-o" aria-hidden="true"></i> <font id="StatInfoRound4">Status Inactive</font></div>
+            </div>
+        </div>
+        <div class="hm-col-time">
+            <div class="hm-time-info">
+                <h4>Form Checker</h4>
+                <p>Periode <font id="MonthNow"></font> <i class="far fa-clock"></i></p>
+            </div>
+            <div class="hm-row hm-info-text">
+                <p>This Period will be reset automate every 7 days after the deadline submit</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/RoundTime.js"></script>

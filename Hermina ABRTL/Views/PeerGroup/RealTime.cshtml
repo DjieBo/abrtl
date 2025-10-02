@@ -1,0 +1,53 @@
+﻿@model Hermina_ABRTL.ViewModel.PeerGroupVM
+<script>
+        $(document).ready(function () {
+            setInterval(function () { LoadData();}, 30000);
+        });
+        function LoadData() {
+            $.ajax({
+                url: "@Url.Action("RealTime")",
+                type: "GET",
+                success: function (result) {
+                    $("#PeerData").html(result);
+                }
+            });
+        }
+</script>
+<div class="hm-layout">
+    <div class="hm-row hm-head-peer">
+        <div class="hm-title-peer"><h3>Real Time Progress Hermina ABRTL-RL</h3></div>
+        <div class="hm-time-now">
+            <div class="hm-row-time">
+                <div class="hm-time-info">
+                    <h4>Real Time Now</h4>
+                    <p>Periode <font id="date_time"></font> <i class="far fa-clock"></i></p>
+                    <script type="text/javascript">window.onload = date_time('date_time');</script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hm-row hm-tbl-rt">
+        <div class="hm-head-rt">
+            <div class="hm-crt-1 hm-crt-style">IDRS</div>
+            <div class="hm-crt-2 hm-crt-style hm-crt-mid">Periode / Round</div>
+            <div class="hm-crt-3 hm-crt-style hm-crt-mid">Checker Status / In Time</div>
+            <div class="hm-crt-4 hm-crt-style hm-crt-mid">Verifikator 1 Status / in Time</div>
+            <div class="hm-crt-5 hm-crt-style">Verifikator 2 Status / in Time</div>
+        </div>
+        <div class="hm-body-crt">
+            
+            @foreach (var data in Model.DataVerifikasi)
+            {
+                var RRound = data.Round.Replace(" ", "");
+                <div class="hm-list-crt" id="@data.IDRS@data.Periode@RRound">
+                    <div class="hm-crt-1 hm-bcrt-style">@data.IDRS</div>
+                    <div class="hm-crt-2 hm-bcrt-style hm-bcrt-mid">@data.Periode <b>( @data.Round )</b></div>
+                    <div class="hm-crt-3 hm-bcrt-style hm-bcrt-mid hm-time-submit" onload="TSubmit('@data.IDRS', '@data.Periode', '@RRound', '@data.StatusData', '@data.DateSubmit', '@data.Status1', '@data.DateVerify1')" id="">@data.StatusData <b>( @data.DateSubmit )</b></div>
+                    <div class="hm-crt-4 hm-bcrt-style hm-bcrt-mid hm-time-verify hm-verify-style" onload="TVerify('@data.IDRS', '@data.Periode', '@RRound', '@data.Status1', '@data.DateVerify1', '@data.Status2', '@data.DateVerify2')" id="Ver1@(data.IDRS)@(data.Periode)@(RRound)"></div>
+                    <div class="hm-crt-5 hm-bcrt-style hm-verify-style" id="Ver2@(data.IDRS)@(data.Periode)@(RRound)"></div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

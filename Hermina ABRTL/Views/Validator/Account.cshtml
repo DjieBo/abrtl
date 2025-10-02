@@ -1,0 +1,78 @@
+﻿@model Hermina_ABRTL.ViewModel.AccountVM
+
+@if (TempData["Message"] != null)
+{
+    <script>
+        alert("@TempData["Message"]");
+    </script>
+}
+<div class="hm-layout">
+    <div class="hm-row hm-title-head">
+        <div class="hm-val-title">List ID Rumah Sakit Cabang</div>
+        <div class="hm-val-addacc" onclick="AddRS()">+ ID Rumah Sakit</div>
+    </div>
+    <div class="hm-row hm-tble-account">
+        <div class="hm-row hm-head-accnt">
+            <div class="hm-head-acc-1 hm-head-acc-style">Province</div>
+            <div class="hm-head-acc-2 hm-head-acc-style">Nama Rumah Sakit</div>
+            <div class="hm-head-acc-3 hm-head-acc-style">Alamat</div>
+            <div class="hm-head-acc-4 hm-head-acc-style">No. Tlpn</div>
+            <div class="hm-head-acc-5 hm-head-acc-style">Action</div>
+        </div>
+        <div class="hm-row hm-body-accnt">
+            <!------- Looping Data Disini-------->
+            @foreach (var item in Model.listAcountRS)
+            {
+                <div class="hm-row hm-list-acct">
+                    <div class="hm-head-acc-1 hm-body-acc-style hm-col-province">@item.Provinsi <span id="@item.IDRS" onclick="Panel(this.id)">View Account User</span></div>
+                    <div class="hm-head-acc-2 hm-body-acc-style">@item.NamaRS</div>
+                    <div class="hm-head-acc-3 hm-body-acc-style">@item.Alamat</div>
+                    <div class="hm-head-acc-4 hm-body-acc-style">@item.Phone</div>
+                    <div class="hm-head-acc-5 hm-body-acc-style">
+                        <div class="hm-acct-btn-row">
+                            <button class="hm-acc-modify" id="@item.IDRS" onclick="ModifyRS(this.id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modify</button>
+                            <button class="hm-acc-trash" id="@item.IDRS" onclick="DeleteRS(this.id)"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                        </div>
+                        <div class="hm-acct-btn-row hm-btm-add">
+                            <button class="hm-acc-add" id="@item.IDRS" onclick="AddAccountUser(this.id)"> + Add Account</button>
+                        </div>
+                    </div>
+                    <div class="hm-panel-child" id="panel@(item.IDRS)">
+                        <div class="hm-head-panel">
+                            <div class="hm-panel-1 hm-panel-child-style"> Nama </div>
+                            <div class="hm-panel-2 hm-panel-child-style"> IDRegister </div>
+                            <div class="hm-panel-3 hm-panel-child-style"> Akses</div>
+                            <div class="hm-panel-4 hm-panel-child-style"> Email </div>
+                            <div class="hm-panel-5 hm-panel-child-style"> No. Telp</div>
+                            <div class="hm-panel-7 hm-panel-child-style"> Action User</div>
+                        </div>
+                        <!-------------- Looping Data MUser -------------->
+                        @foreach (var accVM in Model.listAcc)
+                        {
+                            if (item.IDRS == accVM.IDRS)
+                            {
+                                <div class="hm-body-panel">
+                                    <div class="hm-panel-1 hm-panel-body-style"> @accVM.NamaAcc </div>
+                                    <div class="hm-panel-2 hm-panel-body-style"> @accVM.IDRegAcc </div>
+                                    <div class="hm-panel-3 hm-panel-body-style"> @accVM.AksesAcc</div>
+                                    <div class="hm-panel-4 hm-panel-body-style"> @accVM.EmailAcc </div>
+                                    <div class="hm-panel-5 hm-panel-body-style"> @accVM.PhoneAcc</div>
+                                    <div class="hm-panel-7 hm-panel-btn-style">
+                                        <button class="hm-acc-modify hm-acc-panel-modify" id="@accVM.IDRegAcc" onclick="ModifyAccount(this.id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modify</button> <!-- ID nya isi IDRegister -->
+                                        <button class="hm-acc-trash hm-acc-panel-trash" id="@accVM.IDRegAcc" onclick="DeleteAccount(this.id)"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button> <!-- ID nya isi IDRegister -->
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                        @*if(item.IDRS == user.IDRS){*@
+
+                        @*}*@
+                        <!-------------- End Looping Data MUser -------------->
+                    </div>
+                </div>
+            }
+            <!----------------------------------->
+        </div>
+    </div>
+</div>

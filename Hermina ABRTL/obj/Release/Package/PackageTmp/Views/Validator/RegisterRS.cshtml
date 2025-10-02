@@ -1,0 +1,59 @@
+﻿<div class="hm-layout">
+    <div class="hm-row hm-regs-rs">
+        <span onclick="BacktoRegAccount()"><i class="fas fa-chevron-left"></i> Back to Account Page</span>
+    </div>
+    <div class="hm-regRS-layout">
+        <div class="hm-reg hm-reg-wrap">
+            <h2>Creater ID <br> Rumah Sakit</h2>
+            <div class="hm-reg-form hm-regacc-form">
+                <form method="post" id="formregister">
+                    <div class="hm-reg-row-form">
+                        <div class="hm-reg-form-col">
+                            <label>Region</label><br>
+                            @Html.DropDownList("regionRS", new List<SelectListItem>
+                                    {
+                                        new SelectListItem{ Text="Region", Value = "" },
+                                        new SelectListItem{ Text="Regional I", Value = "Regional 1" },
+                                        new SelectListItem{ Text="Regional II", Value = "Regional 2" },
+                                        new SelectListItem{ Text="Regional III", Value = "Regional 3" },
+                                        new SelectListItem{ Text="Regional IV", Value = "Regional 4" },
+                                        new SelectListItem{ Text="Regional V", Value = "Regional 5" },
+                                    }, new { @required = "on", id = "regionRS", @placeholder = "Select Region" })
+                            
+                        </div>
+                        <div class="hm-reg-form-col">
+                            <label>Province</label><br>
+                            @Html.DropDownList("provinceRS", (IEnumerable<SelectListItem>)ViewBag.ListProvinsi, "Select Province", new { @required = "on", id = "provinceRS", @placeholder = "Select Province" })
+                            
+                        </div>                        
+                    </div>
+                    <div class="hm-reg-row-form hm-reg-city">
+                        <label>City</label><br>
+                        @Html.DropDownList("cityRS", (IEnumerable<SelectListItem>)ViewBag.ListKota, "Input City", new { id = "cityRS", @style = "width:95%;padding:2% 3%;", @placeholder = "Input City" })
+                        
+                    </div>
+                    <div class="hm-reg-row-form">
+                        <label>Address</label><br>
+                        @Html.TextArea("addressRS", null, new { @placeholder = "Input your address", @autocomplete = "off", id = "addressRS", @style = "width:95%;padding:2% 3%;" })
+                    </div>
+                    <div class="hm-reg-row-form">
+                        <label>Nama Rumah Sakit</label><br>
+                        @Html.TextBox("nameRS", null, new { id = "nameRS", @style = "width:95%;padding:2% 3%;", @placeholder = "Enter your name", @autocomplete = "off", @required = "on" })
+                    </div>
+                    <div class="hm-reg-row-form">
+                        <div class="hm-reg-form-col">
+                            <label>Telepon</label><br>
+                            @Html.TextBox("phoneRS", null, new { @class = "hm-col-text-field", id = "phoneRS", @placeholder = "+62 XXXX XXXX XXXX", @autocomplete = "off" })
+                        </div>
+                        <div class="hm-reg-form-col">
+                            <label>ID Rumah Sakit</label><br>
+                            @Html.TextBox("nikRS", null, new { id = "nikRS", @class="hm-col-text-field", @placeholder = "ID 93034 XXXX XXXX", @autocomplete = "off", @required = "on" })
+                        </div>
+                    </div>
+                    <div class="hm-reg-row-form button-area"><span class="hm-reg-rs" id="RegisterRS" onclick="SaveRS()"> Create Account</span></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

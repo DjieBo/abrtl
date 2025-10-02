@@ -1,0 +1,18 @@
+﻿<header>
+    <div class="hm-header-label hm-header-style">
+        <h3>PeerGroup</h3>
+        <span>Rumah Sakit</span>
+    </div>
+    <div class="hm-header-navigator hm-header-style">
+        <ul class="nav-left">
+            <li id="User" onclick="PeerNav(this.id)">User</li>
+            <li id="Report" onclick="PeerNav(this.id)">Report</li>
+        </ul>
+        <ul class="nav-right">
+            <li onclick="Logout()">Log out</li>
+        </ul>
+    </div>
+</header>
+<section id="PeerData">
+    @Html.Partial("RealTime")
+</section>

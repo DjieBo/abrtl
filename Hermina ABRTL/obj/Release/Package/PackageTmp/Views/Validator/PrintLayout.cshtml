@@ -1,0 +1,289 @@
+﻿@model Hermina_ABRTL.ViewModel.ExcReportVM
+
+<div class="hm-view-exp">
+    <div class="hm-expport">
+        <h3>Executive Report Checklist @Model.NamaRS @Model.Round @Model.Bulan</h3>
+        <div class="hm-expport-main">
+            <div class="hm-expport-head">
+                <div class="hm-exp-head-1 hm-exp-head-sty">No</div>
+                <div class="hm-exp-head-2 hm-exp-head-sty">Unit Area</div>
+                <div class="hm-exp-head-3 hm-exp-head-sty">Total Komponen Penilaian</div>
+                <div class="hm-exp-head-4 hm-exp-head-sty">
+                    <span>Pembersihan</span>
+                    <ul>
+                        <li class="hm-part-col-left">Jumlah Item Pemeliharaan</li>
+                        <li class="hm-part-col-mid">% Pemeliharaan</li>
+                        <li class="hm-part-col-right">Daftar Item Pemeliharaan</li>
+                    </ul>
+                </div>
+                <div class="hm-exp-head-5 hm-exp-head-sty">
+                    <span>Perbaikan</span>
+                    <ul>
+                        <li class="hm-part-col-left">Jumlah Item Pemeliharaan</li>
+                        <li class="hm-part-col-mid">% Pemeliharaan</li>
+                        <li class="hm-part-col-right">Daftar Item Pemeliharaan</li>
+                    </ul>
+                </div>
+                <div class="hm-exp-head-6 hm-exp-head-sty">
+                    <span>Penggantian</span>
+                    <ul>
+                        <li class="hm-part-col-left">Jumlah Item Pemeliharaan</li>
+                        <li class="hm-part-col-mid">% Pemeliharaan</li>
+                        <li class="hm-part-col-right">Daftar Item Pemeliharaan</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="hm-exepport-body">
+                <table border="1" style="border:.1px solid #ccc">
+                    @{ int i = 0;}
+                    @foreach (var item in Model.listDataArea)
+                    {
+                        i = i + 1;
+                        <tr class="hm-list-body-exp">
+                            <td class="hm-list-exp-col-1 hm-list-exp-style"><font>@i.</font></td>
+                            <td class="hm-list-exp-col-2 hm-list-exp-style hm-list-exp-mid"><font>@item.RoundArea</font></td>
+                            <td class="hm-list-exp-col-3 hm-list-exp-style hm-list-exp-mid hm-align">@item.Total</td>
+                            <td class="hm-list-exp-col-4 hm-list-exp-style hm-list-exp-mid hm-align">@item.NilaiA</td>
+                            <td class="hm-list-exp-col-5 hm-list-exp-style hm-list-exp-mid hm-align">@item.persenA%</td>
+                            <td class="hm-list-exp-col-6 hm-list-exp-style hm-list-exp-mid">
+                                <ul class="hm-list-child">
+                                    @foreach (var ket in item.listKeteranganA)
+                                    {
+                                        <li>@ket.Keterangan</li>
+                                    }
+                                    <li class="hm-blank-spot">This's Column null value database</li>
+                                </ul>
+                            </td>
+                            <td class="hm-list-exp-col-7 hm-list-exp-style hm-list-exp-mid hm-align">@item.NilaiB</td>
+                            <td class="hm-list-exp-col-8 hm-list-exp-style hm-list-exp-mid hm-align">@item.persenB%</td>
+                            <td class="hm-list-exp-col-9 hm-list-exp-style hm-list-exp-mid">
+                                <ul class="hm-list-child">
+                                    @foreach (var ket in item.listKeteranganB)
+                                    {
+                                        <li>@ket.Keterangan</li>
+                                    }
+                                    <li class="hm-blank-spot">This's Column null value database</li>
+                                </ul>
+                            </td>
+                            <td class="hm-list-exp-col-10 hm-list-exp-style hm-list-exp-mid hm-align">@item.NilaiC</td>
+                            <td class="hm-list-exp-col-11 hm-list-exp-style hm-list-exp-mid hm-align">@item.persenC%</td>
+                            <td class="hm-list-exp-col-12 hm-list-exp-style">
+                                <ul class="hm-list-child">
+                                    @foreach (var ket in item.listKeteranganC)
+                                    {
+                                        <li>@ket.Keterangan</li>
+                                    }
+                                    <li class="hm-blank-spot">This's Column null value database</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+        <div class="hm-row hm-tbl-pcr-styl">
+            <!-- Start Tampilan Gambar -->
+            @if (Model.ListImage != null)
+            {
+                <table class="hm-tbl-pcr">
+                    <tr class="hm-tbl-pcr-head">
+                        <td class="hm-hdpc-1 hm-hdpc-style">Informasi</td>
+                        <td class="hm-hdpc-2 hm-hdpc-style">Gambar Sebelum Perbaikan</td>
+                        <td class="hm-hdpc-3 hm-hdpc-style">Gambar Setelah Perbaikan</td>
+                    </tr>
+                    @if (Model.ListImage.Count > 0)
+                    {
+                        <tbody class="hm-body-pctr">
+                            @foreach (var img in Model.ListImage)
+                            {
+                                <tr>
+                                    <td class="hm-hdpc-1 hm-body-style"><div class="hm-itm-pctr">@img.SubArea / @img.Item / @img.Komponen <br> <b> Keterangan Penilaian : <u>@img.Keterangan</u></b></div></td>
+                                    <td class="hm-hdpc-2 hm-body-style"><div class="hm-itm-pctr"><img src="@img.JPG" alt="Gambar Sebelum Perbaikan" /></div></td>
+                                    <td class="hm-hdpc-3 hm-body-style">
+                                        @if (img.JPGAfter == "" || img.JPGAfter == null)
+                                        {
+                                            <div class="hm-itm-pctr"><label>Gambar Belum Tersedia</label></div>
+                                        }
+                                        else
+                                        { <div class="hm-itm-pctr"><img src="@img.JPGAfter" alt="Gambar Setelah Perbaikan" /></div>}
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    }
+                </table>
+            }
+            else { }
+            <!-- End Tampilan Gambar -->
+        </div>
+        <div class="hm-footer-eport">
+            <div class="hm-footer-row">
+                <div class="hm-footer-info">
+                    <font style="font-weight:bold">Keterangan :</font>
+                    <ul>
+                        <li>% Jumlah pembersihan = Jumlah item pembersihan / total item penilaian x 100%</li>
+                        <li>% Jumlah perbaikan = Jumlah item perbaikan / total item penilaian x 100%</li>
+                        <li>% Jumlah penggantian = Jumlah item perbaikan / total item penilaian x 100%</li>
+                    </ul>
+                </div>
+                <div class="hm-footer-calcu">
+                    <table border="1">
+                        <tr>
+                            <td>Bobot penilaian pembersihan = 1</td>
+                            <td>@Model.bobotItemA%</td>
+                        </tr>
+                        <tr>
+                            <td>Bobot penilaian perbaikan = 0.5</td>
+                            <td>@Model.bobotItemB%</td>
+                        </tr>
+                        <tr>
+                            <td>Bobot penilaian penggantian = 0.25</td>
+                            <td>@Model.bobotItemC%</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="hm-footer-row">
+                <div class="hm-footer-report">
+                    <table border="1">
+                        <tr>
+                            <td>Hermina <br> Jatinegara</td>
+                            <td>Total Item <br>Penilaian</td>
+                            <td>Jumlah Item <br>Pembersihan</td>
+                            <td>% <br> Pembersihan</td>
+                            <td>Jumlah Item <br>Perbaikan</td>
+                            <td>% <br> Perbaikan</td>
+                            <td>Jumlah Item <br>Penggantian</td>
+                            <td>% <br> Penggantian</td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td>@Model.totalItemPenilaian</td>
+                            <td>@Model.totalItemA</td>
+                            <td>@Model.persenTotalItemA%</td>
+                            <td>@Model.totalItemB</td>
+                            <td>@Model.persenTotalItemB%</td>
+                            <td>@Model.totalItemC</td>
+                            <td>@Model.persenTotalItemC%</td>
+                        </tr>
+                    </table>
+                </div>
+                @*Tambahan parameter*@
+                <div class="hm-footer-report">
+                    <table border="1">
+                        <tr>
+                            <td>Nilai Aman</td>
+                            <td>Nilai Bersih</td>
+                            <td>Nilai Rapih</td>
+                            <td>Nilai Tampak Baru</td>
+                            <td>Nilai Ramah Lingkungan</td>
+                        </tr>
+                        <tr>
+                            <td>@Model.persenAman%</td>
+                            <td>@Model.persenBersih%</td>
+                            <td>@Model.persenRapih%</td>
+                            <td>@Model.persenBaru%</td>
+                            <td>@Model.persenRL%</td>
+                        </tr>
+                        <tr>
+                            <td>@Model.totalAman</td>
+                            <td>@Model.totalBersih</td>
+                            <td>@Model.totalRapih</td>
+                            <td>@Model.totalBaru</td>
+                            <td>@Model.totalRL</td>
+                        </tr>
+                        <tr>
+                            <td>@Model.Aman</td>
+                            <td>@Model.Bersih</td>
+                            <td>@Model.Rapih</td>
+                            <td>@Model.Baru</td>
+                            <td>@Model.RL</td>
+                        </tr>
+                        <tr>
+                            <td>@Model.tdkAman</td>
+                            <td>@Model.tdkBersih</td>
+                            <td>@Model.tdkRapih</td>
+                            <td>@Model.tdkBaru</td>
+                            <td>@Model.tdkRL</td>
+                        </tr>
+                    </table>
+                </div>
+                @*Sampai sini*@
+                <div class="hm-footer-summary">
+                    <table border="1">
+                        <tr><td>Bobot Penilaian ABRTL-RL</td></tr>
+                        <tr><td>@Model.totalBobot%</td></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="hm-footer-row">
+                <div class="hm-footer-sign">
+                    <div class="hm-footer-sign-layout">
+                        <div class="hm-col-sign-left">
+                            <p><b>Dibuat Oleh</b></p>
+                            <p>Manager JangUm @Model.NamaRS</p>
+                            <p class="sign-style">
+                                <span>Approved</span>
+                            </p>
+                            <p>@Model.Checker</p>
+                        </div>
+                    </div>
+                    <div class="hm-footer-sign-layout">
+                        <div class="hm-col-sign-right">
+                            <p><b>Diperiksa Oleh</b></p>
+                            <p>Wadir-Um @Model.NamaRS</p>
+                            <p class="sign-style">
+                                <span>Approved</span>
+                            </p>
+                            <p>@Model.WakilDirektur</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hm-footer-sign">
+                    <div class="hm-footer-sign-bottom-left">
+                        <p><b>Disetujui Oleh</b></p>
+                        <p>Direktur @Model.NamaRS</p>
+                        <p class="sign-style">
+                            <span>Approved</span>
+                        </p>
+                        <p>@Model.DIrektur</p>
+                    </div>
+                    <div class="hm-footer-sign-bottom-right">
+                        <p style="text-align:center;"><b>Diketahui oleh,</b></p>
+                        <div class="hm-sign-bottom-child bottom-child-left">
+                            <p>Kepala Departemen Penunjang Umum</p>
+                            <p class="sign-style">
+                                @if (Model.Status1 != "")
+                                {
+                                    <span>Approved</span>
+                                }
+                            </p>
+                            <p>@Model.Validator1</p>
+                        </div>
+                        <div class="hm-sign-bottom-child bottom-child-mid">
+                            <p>Direktur Regional</p>
+                            <p class="sign-style">
+                                @if (Model.Status2 != "")
+                                {
+                                    <span>Approved</span>
+                                }
+                            </p>
+                            <p>@Model.Validator2</p>
+                        </div>
+                        <div class="hm-sign-bottom-child bottom-child-right">
+                            <p>Direktur Operasional</p>
+                            <p class="sign-style">
+                                @if (Model.Status3 != "")
+                                {
+                                    <span>Approved</span>
+                                }
+                            </p>
+                            <p>@Model.Validator3</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

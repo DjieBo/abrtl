@@ -1,0 +1,60 @@
+﻿@model Hermina_ABRTL.ViewModel.modifyRS
+<div class="hm-layout">
+    <div class="hm-row hm-regs-rs">
+        <span onclick="BacktoRegAccount()"><i class="fas fa-chevron-left"></i> Back to Account Page</span>
+    </div>
+    <div class="hm-regRS-layout">
+        <div class="hm-reg hm-reg-wrap">
+            <h2>Modify Data<br> Rumah Sakit</h2>
+            <div class="hm-reg-form hm-regacc-form">
+                <form method="post" id="formregister">
+                    <div class="hm-reg-row-form">
+                        <div class="hm-reg-form-col">
+                            <label>Region</label><br>
+                            @Html.TextBoxFor(x => x.MregionRS, new { @placeholder = "Input your Region", @autocomplete = "off", id = "MregionRS", @style = "width:95%;padding:2% 3%;", @readonly = "true" })
+                            @*<select id="MregionRS" name="MregionRS" placeholder="Select Region">
+                                <option disabled selected class="option-plhdr"> Select Region</option>
+                                <option> Regional 1</option>
+                            </select>*@
+                        </div>
+                        <div class="hm-reg-form-col">
+                            <label>Province</label><br>
+                            @Html.TextBoxFor(x => x.MprovinceRS, new { @placeholder = "Input your Province", @autocomplete = "off", id = "MprovinceRS", @style = "width:95%;padding:2% 3%;" , @readonly = "true" })
+                            @*@Html.DropDownList("provinceRS", (IEnumerable<SelectListItem>)ViewBag.ListProvinsi, "Select Province", new { @required = "on", id = "provinceRS", @placeholder = "Select Province" })*@
+                            @*<select id="MprovinceRS" name="MprovinceRS" placeholder="Select Province">
+                                <option disabled selected class="option-plhdr"> Select Provice</option>
+                                <option> DKI Jakarta</option>
+                            </select>*@
+                        </div>
+                    </div>
+                    <div class="hm-reg-row-form hm-reg-city">
+                        <label>City</label><br>
+                        @Html.TextBoxFor(x => x.McityRS, new { @placeholder = "Input your City", @autocomplete = "off", id = "McityRS", @style = "width:95%;padding:2% 3%;", @readonly = "true" })
+                        @*@Html.DropDownList("cityRS", (IEnumerable<SelectListItem>)ViewBag.ListKota, "Input City", new { id = "cityRS", @style = "width:95%;padding:2% 3%;", @placeholder = "Input City" })*@
+                        @*<input type="text" name="McityRS" id="McityRS" style="width:95%;padding:2% 3%;" placeholder="Input City" />*@
+                    </div>
+                    <div class="hm-reg-row-form">
+                        <label>Address</label><br>
+                        @Html.TextAreaFor(x => x.MaddressRS, new { @placeholder = "Input your address", @autocomplete = "off", id = "MaddressRS", @style = "width:95%;padding:2% 3%;" })
+                    </div>
+                    <div class="hm-reg-row-form">
+                        <label>Nama Rumah Sakit</label><br>
+                        @Html.TextBoxFor(x => x.MnameRS, new { id = "MnameRS", @style = "width:95%;padding:2% 3%;", @placeholder = "Enter your name", @autocomplete = "off", @required = "on" })
+                    </div>
+                    <div class="hm-reg-row-form">
+                        <div class="hm-reg-form-col">
+                            <label>Telepon</label><br>
+                            @Html.TextBoxFor(x => x.MphoneRS, new { @class = "hm-col-text-field", id = "MphoneRS", @placeholder = "+62 XXXX XXXX XXXX", @autocomplete = "off" })
+                        </div>
+                        <div class="hm-reg-form-col">
+                            <label>ID Rumah Sakit</label><br>
+                            @Html.TextBoxFor(x => x.MnikRS, new { id = "MnikRS", @class = "hm-col-text-field", @placeholder = "ID 93034 XXXX XXXX", @autocomplete = "off", @required = "on" , @readonly = "true" })
+                        </div>
+                    </div>
+                    <div class="hm-reg-row-form button-area"><span class="hm-reg-rs" onclick="SetModifyRS()"> Modify Account</span></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

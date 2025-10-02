@@ -1,0 +1,205 @@
+﻿@model Hermina_ABRTL.ViewModel.ExtReportRABVM
+
+<div class="hm-layout screen-page">
+    <div class="hm-row hm-rab-layout">
+        <div class="hm-row hm-nav-back hm-lh-back">
+            <span class="backtoForm" id="RAB" onclick="VefirikatorNav(this.id)"><i class="fas fa-chevron-left"></i> Back to previous page</span>
+        </div>
+        <div class="hm-expport">
+            <h3>Executive Report RAB  @Model.Round <span id="PeriodeVRAB">@Model.Periode</span></h3>
+            <div class="hm-expport-main" style="border:none">
+                <div class="hm-row hm-rabform">
+                    <div class="hm-row hm-rab-head">
+                        <div class="hm-rab-col-3 hm-rab-head-style hm-view-fct-1">Penilaian</div>
+                        <div class="hm-rab-col-4 hm-rab-head-style">Nilai</div>
+                        <div class="hm-rab-col-5 hm-rab-head-style hm-view-fct-2">Keterangan</div>
+                        <div class="hm-rab-col-14 hm-rab-merge-style">
+                            <div class="hm-row">Material</div>
+                            <div class="hm-row hm-rab-snd-row">
+                                <div class="hm-subcol">Kategori</div>
+                                <div class="hm-subcol hm-subcol-mid-style">Item</div>
+                                <div class="hm-subcol">Merk</div>
+                            </div>
+                        </div>
+                        <div class="hm-rab-col-6 hm-rab-merge-style">Batasan<br>Biaya</div>
+                        <div class="hm-rab-col-7 hm-rab-head-style">Biaya</div>
+                        <div class="hm-rab-col-8 hm-rab-head-style">Selisih</div>
+                        <div class="hm-rab-col-9 hm-rab-merge-style">Picture<br>(Before)</div>
+                    </div>
+                    <div class="hm-row hm-rab-body">
+                        @foreach (var item in Model.listData)
+                        {
+                            var LgKom = item.Penilaian.Length;
+                            var LgInfo = item.Keterangan.Length;
+                            var LgItem = item.ItemPerbaiki.Length;
+                            var lgDeskrp = item.DeskripsiPerbaiki.Length;
+                            var node = " ...";
+                            <div class="hm-rab-list">
+                                <div class="hm-rab-col-3 hm-rab-body-style hm-rab-font-style hm-view-fct-1">
+                                    @if (LgKom < 35)
+                                    {
+                                        <div class="toltip">
+                                            @item.Penilaian
+                                            <span class="toltiptext">@item.SubArea / @item.Item / @item.Penilaian</span>
+                                        </div>
+                                    }
+                                    else if (LgKom >= 35)
+                                    {
+                                        var SbKom = item.Penilaian.Substring(0, 35);
+                                        <div class="toltip">
+                                            @SbKom @node
+                                            <span class="toltiptext">@item.SubArea / @item.Item / @item.Penilaian</span>
+                                        </div>
+
+                                    }
+                                </div>
+                                <div class="hm-rab-col-4 hm-rab-body-style hm-rab-alg-center hm-rab-font-style">@item.Nilai</div>
+                                <div class="hm-rab-col-5 hm-rab-body-style hm-rab-font-style hm-view-fct-2">
+                                    @if (LgInfo < 25)
+                                    {@item.Keterangan }
+                                else if (LgInfo >= 25)
+                                {
+                                    var SbInfo = item.Keterangan.Substring(0, 25); @SbInfo @node}
+                                </div>
+                                <div class="hm-rab-col-15 hm-rab-sel-style">
+
+                                    <label>@item.KomponenPerbaiki</label>
+                                </div>
+                                <div class="hm-rab-col-15 hm-rab-sel-style">
+                                    @if (LgItem < 20)
+                                    {<label>@item.ItemPerbaiki</label>}
+                                else
+                                {
+                                    var SbItem = item.ItemPerbaiki.Substring(0, 20); <label>@SbItem @node</label>}
+                                </div>
+
+                                <div class="hm-rab-col-15 hm-rab-sel-style">
+                                    @if (lgDeskrp < 20)
+                                    {<label>@item.DeskripsiPerbaiki</label>}
+                                else
+                                {
+                                    var SbDeskp = item.DeskripsiPerbaiki.Substring(0, 20); <label>@SbDeskp @node</label>}
+                                </div>
+                                <div class="hm-rab-col-6 hm-rab-input-style hm-rab-alg-right">
+                                    <input type="text" name="budget[]" value="@item.HargaDasar" disabled />
+                                </div>
+                                <div class="hm-rab-col-7 hm-rab-input-style" id="pyt2">
+                                    <input type="text" name="payout[]" value="@item.HargaInput" autocomplete="off" disabled />
+                                </div>
+                                <div class="hm-rab-col-8 hm-rab-input-style hm-rab-alg-right" id="qrl2">
+
+                                    <input type="text" name="quareel[]" value="@item.SelisihHarga" disabled>
+                                </div>
+                                <div class="hm-rab-col-9 hm-rab-symbol-style hm-rab-alg-center"><a href="@Url.Action("BRABImage", "Checker", new { ID = item.ID, Round = item.Round, Periode = item.Periode})" target="_blank"><i class="fas fa-image"></i></a></div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="hm-footer-eport" id="RABSign" style="display:none">
+                <div class="hm-footer-row">
+                    <div class="hm-footer-sign">
+                        <div class="hm-footer-sign-layout">
+                            <div class="hm-col-sign-left">
+                                <p><b>Dibuat Oleh</b></p>
+                                <p>Manager JangUm @Model.NamaRS</p>
+                                <p class="sign-style">
+                                    <span>Approved</span>
+                                </p>
+                                <p>@Model.Checker</p>
+                            </div>
+                        </div>
+                        <div class="hm-footer-sign-layout">
+                            <div class="hm-col-sign-right">
+                                <p><b>Diperiksa Oleh</b></p>
+                                <p>Wadir-Um @Model.NamaRS</p>
+                                <p class="sign-style">
+                                    @if (Model.StatusVer1 == "Disetujui")
+                                    {<span>Approved</span>}
+                                </p>
+                                <p>@Model.WakilDir</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hm-footer-sign">
+                        <div class="hm-footer-sign-bottom-left">
+                            <p><b>Disetujui Oleh</b></p>
+                            <p>Direktur @Model.NamaRS</p>
+                            <p class="sign-style">
+                                @if (Model.StatusVer2 == "Disetujui")
+                                {<span>Approved</span>}
+                            </p>
+                            <p>@Model.Direktur</p>
+                        </div>
+                        <div class="hm-footer-sign-bottom-right">
+                            <p style="text-align:center;"><b>Diketahui oleh,</b></p>
+                            <div class="hm-sign-bottom-child bottom-child-left">
+                                <p>Kepala Departemen Penunjang Umum</p>
+                                <p class="sign-style">
+                                    @if (Model.Approve1 == "Diketahui")
+                                    {<span>Approved</span>}
+                                </p>
+                                <p>@Model.Validator1</p>
+                            </div>
+                            <div class="hm-sign-bottom-child bottom-child-mid">
+                                <p>Direktur Regional</p>
+                                <p class="sign-style">
+                                    @if (Model.Approve2 == "Diketahui")
+                                    {<span>Approved</span>}
+                                </p>
+                                <p>@Model.Validator2</p>
+                            </div>
+                            <div class="hm-sign-bottom-child bottom-child-right">
+                                <p>Direktur Operasional</p>
+                                <p class="sign-style">
+                                    @if (Model.Approve3 == "Diketahui")
+                                    {<span>Approved</span>}
+                                </p>
+                                <p>@Model.Validator3</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hm-btn-export" id="BtnPlc">
+            <div class="hm-row hm-ver-comment">
+                <label>Comment</label>
+                <textarea name="comment" id="VerComment" rows="10" placeholder="Write your comment"></textarea>
+            </div>
+            <div class="hm-row">
+                <button class="hm-accpt-btn hm-spc-btn" onclick="RABExecute('Verify', '@Model.Round', '@Model.Periode')">Accept </button>
+                <button class="hm-print-btn hm-spc-btn" onclick="RABExecute('Reject', '@Model.Round', '@Model.Periode')">Reject</button>
+            </div>
+        </div>
+        <div class="hm-btn-export" id="PrintBtnVr" style="display:none">
+            @Html.ActionLink("Print Data RAB", "PrintDataRAB", new { Periode = Model.Periode, Round = Model.Round }, new { @class = "hm-print-btn", id = "printPDF", @target = "_blank" });
+        </div>
+    </div>
+</div>
+
+<script>
+    let TxtPeriode = document.getElementById("PeriodeVRAB").textContent;
+    let Bln = parseInt(TxtPeriode.slice(-2));
+    let Thn = TxtPeriode.substring(0, 4);
+    const monthNames = ["", "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+    let BulanVerRAB = monthNames[Bln];
+    let Date = BulanVerRAB + " " + Thn;
+    document.getElementById("PeriodeVRAB").innerHTML = Date;
+
+    function RABExecute(values, round, periode) {
+        let comment = document.getElementById("VerComment").value;
+        $.ajax({
+            url: "/Verifikator/RABExecute/",
+            type: "POST",
+            data: { Round: round, Submit: values, Comment: comment, Periode: periode },
+            success: function (result) {
+                $('#VrifikatLayout').html(result);
+                $('#BtnPlc').css("display", "none");
+                $('#PrintBtnVr').css("display", "block");
+            }
+        });
+    }
+</script>

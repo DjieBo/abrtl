@@ -1,0 +1,90 @@
+﻿@model Hermina_ABRTL.ViewModel.DataSPK
+
+
+<div class="hm-row hm-spk-title">
+    <h3>List Job Report @Model.Round <span id="SPKVPeriode">@Model.Periode</span></h3>
+    <div class="hm-spk-time" id="SPKVtimer">Sisa Waktu Pengerjaan SPK : <span id="SPKVCd" data-sttime="@Model.TimeStart"></span></div>
+</div>
+<div class="hm-row hm-rabform">
+    <div class="hm-row hm-rab-head">
+        <div class="hm-rab-col-1 hm-rab-head-style">SubArea</div>
+        <div class="hm-rab-col-2 hm-rab-merge-style">Item<br>Material</div>
+        <div class="hm-rab-col-3 hm-rab-head-style">Penilaian</div>
+        <div class="hm-rab-col-4 hm-rab-head-style">Nilai</div>
+        <div class="hm-rab-col-5 hm-rab-head-style">Keterangan</div>
+        <div class="hm-rab-col-10 hm-rab-merge-style">Batasan<br>Biaya</div>
+        <div class="hm-rab-col-11 hm-rab-head-style">Biaya</div>
+        <div class="hm-rab-col-12 hm-rab-head-style">Selisih</div>
+        <div class="hm-rab-col-13 hm-rab-merge-style">Picture (Before)</div>
+        <div class="hm-rab-col-13 hm-rab-merge-style">Picture (After)</div>
+    </div>
+    <div class="hm-row hm-rab-body">
+        <div class="hm-rab-list">
+            @foreach (var a in Model.ListSPK)
+            {
+                var pn = a.Penilaian.Length;
+                var itm = a.Item.Length;
+                var kt = a.Keterangan.Length;
+                var node = "..";
+                <input type="hidden" name="idSPK" id="IDSPK" value="@a.ID" />
+                <div class="hm-rab-col-1 hm-spk-font hm-rab-body-style">@a.SubArea</div>
+                <div class="hm-rab-col-2 hm-spk-font hm-rab-body-style hm-rab-alg-center">
+                    @if (itm < 17)
+                    {@a.Item }
+                else if (itm >= 17)
+                {
+                    var subItm = a.Item.Substring(0, 17); @subItm}
+                </div>
+                <div class="hm-rab-col-3 hm-spk-font hm-rab-body-style">
+                    @if (pn < 20)
+                    {@a.Penilaian }
+                else if (pn >= 20)
+                {
+                    var subPn = a.Penilaian.Substring(0, 20); @subPn @node}
+                </div>
+                <div class="hm-rab-col-4 hm-spk-font hm-rab-body-style hm-rab-alg-center">@a.Nilai</div>
+                <div class="hm-rab-col-5 hm-spk-font hm-rab-body-style">
+                    @if (kt < 17)
+                    {@a.Keterangan }
+                else if (kt > 17)
+                {
+                    var subKT = a.Keterangan.Substring(0, 17); @subKT @node;
+                }
+                </div>
+                <div class="hm-rab-col-10 hm-spk-font hm-rab-body-style hm-rab-alg-right">@a.HargaDasar</div>
+                <div class="hm-rab-col-11 hm-spk-font hm-rab-body-style hm-rab-alg-right">@a.HargaInput</div>
+                <div class="hm-rab-col-12 hm-spk-font hm-rab-body-style hm-rab-alg-right">@a.SelisihHarga</div>
+                <div class="hm-rab-col-13 hm-rab-symbol-style hm-rab-alg-center"><a class="hm-image-view" id="Image@(a.ID)" href="@Url.Action("BRABImage", "Verifikator", new { ID = a.ID, Round = a.Round, Periode = a.Periode})" target="_blank"><i class="fas fa-image"></i></a></div>
+                <div class="hm-rab-col-13 hm-rab-symbol-style hm-rab-alg-center hm-spk-cam">
+                    @if (a.PictureAf != null && a.PictureAf != "")
+                    {
+                        <a class="hm-image-view" id="ImageAf@(a.ID)" href="@Url.Action("SPKImage", "Verifikator", new { IDUnix = a.IDUnix, Round = a.Round, Periode = a.Periode})" target="_blank">
+                            <i class="fas fa-image"></i>
+                        </a>
+                    }
+                    else
+                    { <i onclick="alert('Maaf Upload Gambar Perbaikan hanya dari akun Checker!')" class="fas fa-upload"></i>}
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+<div class="hm-row hm-rab-btn hm-spk-btn" id="btnplcSPK">
+    @Html.ActionLink("Job Report", "SPKVPdf", new { Periode = Model.Periode, Round = Model.Round }, new { @class = "hm-print-btn", id = "printVPDFSPK", @target = "_blank", @style = "display:none" });
+</div>
+<script src="~/Scripts/SPKTime.js"></script>
+
+<script type="text/javascript">
+    let TxtPeriode = document.getElementById("SPKVPeriode").textContent;
+    let Bln = parseInt(TxtPeriode.slice(-2));
+    let Thn = TxtPeriode.substring(0, 4);
+    const monthNames = ["", "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+    let BulanVSPK = monthNames[Bln];
+    let Date = BulanVSPK + " " + Thn;
+    document.getElementById("SPKVPeriode").innerHTML = Date;
+
+</script>
+

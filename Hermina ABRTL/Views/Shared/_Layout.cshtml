@@ -1,0 +1,1331 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hermina ABRTL-RL </title>
+    <script src="https://kit.fontawesome.com/49bb70a659.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <!--------------- Nav---------------->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('ul.nav-left li').click(function () {
+                $('li').removeClass("live");
+                $(this).addClass("live");
+            });
+        });
+    </script>
+    <!------------ End Nav -------------->
+    <!-------------- Function --------------->
+    <script>
+        function Logout() {
+            $.ajax({
+                url: "@Url.Action("Logout", "LandingPage")",
+                type: "POST",
+                success: function (result) {
+                    window.location = "/"
+                }
+            });
+        }
+        //=========================== Checker Function ===================
+        function Nav(id) {
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0');
+            var yyyy = today.getFullYear();
+            let Period = `${yyyy}-${mm}`;
+            if (id == 'RAB' || id == 'FormChecker') {
+                $.ajax({
+                    url: "/Checker/" + id,
+                    type: "POST",
+                    data: { Periode: Period },
+                    success: function (result) {
+                        $('#hmPartView').html(result);
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: "/Checker/" + id,
+                    type: "GET",
+                    success: function (result) {
+                        $('#hmPartView').html(result);
+                    }
+                });
+            }
+        }
+        function Round(id) {
+            $.ajax({
+                url: "/Checker/AreaForm/",
+                type: "POST",
+                data: { Round : id },
+                success: function (result) {
+                    $('#hmPartView').html(result);
+                    var idR = id.replace(" ", "_");
+                    //$("#submitRound").attr("id", "Submit" + idR);
+                    $("#submitRound").attr("id", "Submit" + idR);
+                }
+            });
+        }
+        function RAB(id, date) {
+            $.ajax({
+                url: "/Checker/RABForm/",
+                type: "POST",
+                data: { Round: id, Periode: date},
+                success: function (result) {
+                    $('#hmPartView').html(result);
+
+                    var Budge = $("input[name='budget[]']").map(function () {
+                        var Bid = $(this).attr('id');
+                        return Bid;
+                    }).get();
+                    Budge.forEach(function (a) {
+                        var rupiah = document.getElementById(a);
+                        if (rupiah) {
+                            rupiah.addEventListener("click", function (e) {
+                                rupiah.value = formatRupiah(this.value, "Rp. ");
+                            });
+
+                            function formatRupiah(angka, prefix) {
+                                var number_string = angka.replace(/[^,\d]/g, "").toString(),
+                                    split = number_string.split(","),
+                                    sisa = split[0].length % 3,
+                                    rupiah = split[0].substr(0, sisa),
+                                    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+                                if (ribuan) {
+                                    separator = sisa ? "." : "";
+                                    rupiah += separator + ribuan.join(".");
+                                }
+                                rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
+                                return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
+                            }
+                        }
+
+
+                    });
+                }
+            });
+        }
+        function RoundArea(r, ra, rd) {
+            var rnd = r.replace(" ", "_");
+            $.ajax({
+                url: "/Checker/RoundArea/",
+                type: "POST",
+                data: { Round: r, RoundArea: ra },
+                success: function (result) {
+                    $('#AreaView').html(result);
+                    $("#submitRound").attr("id", "Submit" + rnd);
+                }
+            });
+        }
+        function Nilai(n, vn, kompo, round) {
+            if (vn == null || vn == "") {
+                if (n != null) {
+                    var param = "param" + kompo;
+                    document.getElementById(param).removeAttribute("disabled");
+                    document.getElementById(param).setAttribute("required", "on");
+                    document.getElementById(param).onchange = function () { Parameter() };
+                    function Parameter() {
+                        var pval = document.getElementById(param).value;
+                        if (pval != null & (n == "B" || n == "C")) {
+                            var info = "Info" + kompo;
+                            document.getElementById(info).removeAttribute("disabled");
+                            document.getElementById(info).setAttribute("required", "on");
+                            document.getElementById(info).setAttribute("placeholder", "Pleace type yours comment..");
+                            document.getElementById(info).oninput = function () { InfoNotiv() };
+                            function InfoNotiv() {
+                                var inval = document.getElementById(info).value;
+                                var cam = "Camera" + kompo;
+                                var camtext = "font" + kompo;
+                                var camsym = "CameraSymbol" + kompo;
+                                if ((n == "B" || n == "C") && inval != null) {
+                                    document.getElementById(cam).style.cssText = "color:#019443; cursor:pointer";
+                                    document.getElementById(camtext).style.cssText = "color:#019443; cursor:pointer";
+                                    document.getElementById(camsym).style.cssText = "color:#019443; cursor:pointer";
+                                    document.getElementById(cam).onclick = function () { CameraModal() };
+                                    function CameraModal() {
+                                        $(".hm-cam-modal").fadeIn();
+                                        var modalCam = document.getElementById("modalCamera");
+                                        var closeCam = document.getElementById("closeModal");
+                                        if (modalCam != null && closeCam != null) {
+                                            modalCam.setAttribute("id", "modalCamera" + kompo);
+                                            closeCam.setAttribute("id", "closeModal" + kompo);
+                                        } else { }
+                                        var divstream = document.getElementById("StreamPlace");
+                                        var canvasStream = document.createElement("div");
+                                        divstream.appendChild(canvasStream);
+                                        document.getElementById("saveImage").onclick = function () { SavePicture() };
+                                        function SavePicture() {
+                                            var file = document.getElementById("ImgCapture").src;
+                                            var formdata = new FormData();
+                                            formdata.append("ID", kompo);
+                                            formdata.append("Nilai", n);
+                                            formdata.append("ValParameter", pval);
+                                            formdata.append("Keterangan", inval);
+                                            formdata.append("base64image", file);
+                                            $.ajax({
+                                                url: "@Url.Action("Upload")",
+                                                type: "POST",
+                                                data: formdata,
+                                                processData: false,
+                                                contentType: false,
+                                                success: function (result) {
+                                                    var MKompo = "modalCamera" + kompo;
+                                                    $('#' + MKompo).fadeOut();
+                                                    $('#ResultRoundArea').html(result);
+                                                    let rnd = round.replace(" ", "_");
+                                                    $("#submitRound").attr("id", "Submit" + rnd);
+                                                }
+                                            });
+                                        }
+                                    }
+                                } else if (n == "A" && inval != null) {
+                                    document.getElementById(cam).style.cssText = "color:#ddd; cursor:none";
+                                }
+                            }
+                        } else if (pval != null & n == "A") {
+                            $.ajax({
+                                url: "@Url.Action("Upload")",
+                                type: "POST",
+                                data: { ID: kompo, Nilai: n, ValParameter: pval },
+                                success: function (result) {
+                                    $('#ResultRoundArea').html(result);
+                                    let rnd = round.replace(" ", "_");
+                                    $("#submitRound").attr("id", "Submit" + rnd);
+                                }
+                            });
+                        } else {
+                            alert("Maaf Penyimapanan anda Gagal");
+                            $('#ResultKomponen').html(result);
+                        }
+                    }
+                }
+            } else if (vn != null) {
+                if (vn == "C") {
+                    if (n == "B") {
+                        var param = "param" + kompo;
+                        var info = "Info" + kompo;
+                        var cam = "Camera" + kompo;
+                        var imgedit = "Image" + kompo;
+                        var camtext = "font" + kompo;
+                        var camsym = "CameraSymbol" + kompo;
+                        document.getElementById(param).removeAttribute("disabled");
+                        document.getElementById(info).removeAttribute("disabled");
+                        document.getElementById(info).removeAttribute("value");
+                        document.getElementById(info).setAttribute("placeholder", "Pleace type yours comment..");
+                        var pval = document.getElementById(param).value;
+                        document.getElementById(info).oninput = function () { InfoNotiv() };
+                        function InfoNotiv() {
+                            var inval = document.getElementById(info).value;
+                            $("#" + imgedit).hide();
+                            $("#" + cam).show();
+                            document.getElementById(cam).style.cssText = "color:#019443; cursor:pointer";
+                            document.getElementById(camtext).style.cssText = "color:#019443; cursor:pointer";
+                            document.getElementById(camsym).style.cssText = "color:#019443; cursor:pointer";
+                            document.getElementById(cam).onclick = function () { CameraModal() };
+                            function CameraModal() {
+                                $(".hm-cam-modal").fadeIn();
+                                var modalCam = document.getElementById("modalCamera");
+                                var closeCam = document.getElementById("closeModal");
+                                if (modalCam != null && closeCam != null) {
+                                    modalCam.setAttribute("id", "modalCamera" + kompo);
+                                    closeCam.setAttribute("id", "closeModal" + kompo);
+                                } else { }
+                                var divstream = document.getElementById("StreamPlace");
+                                var canvasStream = document.createElement("div");
+                                divstream.appendChild(canvasStream);
+                                document.getElementById("saveImage").onclick = function () { SavePicture() };
+                                function SavePicture() {
+                                    var file = document.getElementById("ImgCapture").src;
+                                    var formdata = new FormData();
+                                    formdata.append("ID", kompo);
+                                    formdata.append("Nilai", n);
+                                    formdata.append("ValParameter", pval);
+                                    formdata.append("Keterangan", inval);
+                                    formdata.append("base64image", file);
+                                    $.ajax({
+                                        url: "@Url.Action("Upload")",
+                                        type: "POST",
+                                        data: formdata,
+                                        processData: false,
+                                        contentType: false,
+                                        success: function (result) {
+                                            var MKompo = "modalCamera" + kompo;
+                                            $('#' + MKompo).fadeOut();
+                                            $('#ResultRoundArea').html(result);
+                                            let rnd = round.replace(" ", "_");
+                                            $("#submitRound").attr("id", "Submit" + rnd);
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    } else if (n == "A") {
+                        var param = "param" + kompo;
+                        document.getElementById(param).removeAttribute("disabled");
+                        document.getElementById(param).setAttribute("required", "on");
+                        document.getElementById(param).onchange = function () { Parameter() };
+                        function Parameter() {
+                            var pval = document.getElementById(param).value;
+                            $.ajax({
+                                url: "@Url.Action("Upload")",
+                                type: "POST",
+                                data: { ID: kompo, Nilai: n, ValParameter: pval },
+                                success: function (result) {
+                                    $('#ResultRoundArea').html(result);
+                                    let rnd = round.replace(" ", "_");
+                                    $("#submitRound").attr("id", "Submit" + rnd);
+                                }
+                            });
+                        }
+                    }
+                } else if (vn == "B") {
+                    if (n == "C") {
+                        var param = "param" + kompo;
+                        var info = "Info" + kompo;
+                        var cam = "Camera" + kompo;
+                        var imgedit = "Image" + kompo;
+                        var camtext = "font" + kompo;
+                        var camsym = "CameraSymbol" + kompo;
+                        document.getElementById(param).removeAttribute("disabled");
+                        document.getElementById(info).removeAttribute("disabled");
+                        document.getElementById(info).removeAttribute("value");
+                        document.getElementById(info).setAttribute("placeholder", "Pleace type yours comment..");
+                        var pval = document.getElementById(param).value;
+                        document.getElementById(info).oninput = function () { InfoNotiv() };
+                        function InfoNotiv() {
+                            var inval = document.getElementById(info).value;
+                            $("#" + imgedit).hide();
+                            $("#" + cam).show();
+                            document.getElementById(cam).style.cssText = "color:#019443; cursor:pointer";
+                            document.getElementById(camtext).style.cssText = "color:#019443; cursor:pointer";
+                            document.getElementById(camsym).style.cssText = "color:#019443; cursor:pointer";
+                            document.getElementById(cam).onclick = function () { CameraModal() };
+                            function CameraModal() {
+                                $(".hm-cam-modal").fadeIn();
+                                var modalCam = document.getElementById("modalCamera");
+                                var closeCam = document.getElementById("closeModal");
+                                if (modalCam != null && closeCam != null) {
+                                    modalCam.setAttribute("id", "modalCamera" + kompo);
+                                    closeCam.setAttribute("id", "closeModal" + kompo);
+                                } else { }
+                                var divstream = document.getElementById("StreamPlace");
+                                var canvasStream = document.createElement("div");
+                                divstream.appendChild(canvasStream);
+                                document.getElementById("saveImage").onclick = function () { SavePicture() };
+                                function SavePicture() {
+                                    var file = document.getElementById("ImgCapture").src;
+                                    var formdata = new FormData();
+                                    formdata.append("ID", kompo);
+                                    formdata.append("Nilai", n);
+                                    formdata.append("ValParameter", pval);
+                                    formdata.append("Keterangan", inval);
+                                    formdata.append("base64image", file);
+                                    $.ajax({
+                                        url: "@Url.Action("Upload")",
+                                        type: "POST",
+                                        data: formdata,
+                                        processData: false,
+                                        contentType: false,
+                                        success: function (result) {
+                                            var MKompo = "modalCamera" + kompo;
+                                            $('#' + MKompo).fadeOut();
+                                            $('#ResultRoundArea').html(result);
+                                            let rnd = round.replace(" ", "_");
+                                            $("#submitRound").attr("id", "Submit" + rnd);
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    } else if (n == "A") {
+                        var param = "param" + kompo;
+                        document.getElementById(param).removeAttribute("disabled");
+                        document.getElementById(param).setAttribute("required", "on");
+                        document.getElementById(param).onchange = function () { Parameter() };
+                        function Parameter() {
+                            var pval = document.getElementById(param).value;
+                            $.ajax({
+                                url: "@Url.Action("Upload")",
+                                type: "POST",
+                                data: { ID: kompo, Nilai: n, ValParameter: pval },
+                                success: function (result) {
+                                    $('#ResultRoundArea').html(result);
+                                    let rnd = round.replace(" ", "_");
+                                    $("#submitRound").attr("id", "Submit" + rnd);
+                                }
+                            });
+                        }
+                    }
+                } else if (vn == "A") {
+                    if (n == "B" || n == "C") {
+                        var param = "param" + kompo;
+                        var info = "Info" + kompo;
+                        document.getElementById(param).removeAttribute("disabled");
+                        document.getElementById(param).setAttribute("required", "on");
+                        document.getElementById(info).removeAttribute("disabled");
+                        document.getElementById(info).setAttribute("required", "on");
+                        document.getElementById(info).setAttribute("placeholder", "Pleace type yours comment..");
+                        document.getElementById(param).onchange = function () { Parameter() };
+                        function Parameter() {
+                            var pval = document.getElementById(param).value;
+                            if (pval != null & (n == "B" || n == "C")) {
+                                document.getElementById(info).oninput = function () { InfoNotiv() };
+                                function InfoNotiv() {
+                                    var inval = document.getElementById(info).value;
+                                    var cam = "Camera" + kompo;
+                                    var camtext = "font" + kompo;
+                                    var camsym = "CameraSymbol" + kompo;
+                                    if ((n == "B" || n == "C") && inval != null) {
+                                        document.getElementById(cam).style.cssText = "color:#019443; cursor:pointer";
+                                        document.getElementById(camtext).style.cssText = "color:#019443; cursor:pointer";
+                                        document.getElementById(camsym).style.cssText = "color:#019443; cursor:pointer";
+                                        document.getElementById(cam).onclick = function () { CameraModal() };
+                                        function CameraModal() {
+                                            $(".hm-cam-modal").fadeIn();
+                                            var modalCam = document.getElementById("modalCamera");
+                                            var closeCam = document.getElementById("closeModal");
+                                            if (modalCam != null && closeCam != null) {
+                                                modalCam.setAttribute("id", "modalCamera" + kompo);
+                                                closeCam.setAttribute("id", "closeModal" + kompo);
+                                            } else { }
+                                            var divstream = document.getElementById("StreamPlace");
+                                            var canvasStream = document.createElement("div");
+                                            divstream.appendChild(canvasStream);
+                                            document.getElementById("saveImage").onclick = function () { SavePicture() };
+                                            function SavePicture() {
+                                                var file = document.getElementById("ImgCapture").src;
+                                                var formdata = new FormData();
+                                                formdata.append("ID", kompo);
+                                                formdata.append("Nilai", n);
+                                                formdata.append("ValParameter", pval);
+                                                formdata.append("Keterangan", inval);
+                                                formdata.append("base64image", file);
+                                                $.ajax({
+                                                    url: "@Url.Action("Upload")",
+                                                    type: "POST",
+                                                    data: formdata,
+                                                    processData: false,
+                                                    contentType: false,
+                                                    success: function (result) {
+                                                        var MKompo = "modalCamera" + kompo;
+                                                        $('#' + MKompo).fadeOut();
+                                                        $('#ResultRoundArea').html(result);
+                                                        let rnd = round.replace(" ", "_");
+                                                        $("#submitRound").attr("id", "Submit" + rnd);
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        function closeModal(id) {
+            if (id != null){
+                var str = id.substring(10, 15);
+                var them = "modalCamera" + str;
+                $("#"+them).fadeOut();
+            }
+        }
+        function SubmitRound(id) {
+            var idr = id.replace("Submit", "");
+            var idround = idr.replace("_", " ");
+            $.ajax({
+                url: "@Url.Action("Submit")",
+                type: "POST",
+                data: { Round: idround },
+                success: function (x) {
+                    $("#hmPartView").html(x);
+                }
+            });
+        }
+        function ViewImage(id) {
+            var IDKom = id.replace("Image", "");
+            $(".hm-img-modal").fadeIn();
+            var modalCam = document.getElementById("modalImage");
+            var closeCam = document.getElementById("closeIMAGE");
+            if (modalCam != null && closeCam != null) {
+                modalCam.setAttribute("id", "modalIMG" + IDKom);
+                closeCam.setAttribute("id", "closeIMG" + IDKom);
+                $.ajax({
+                    url: "@Url.Action("ImageView")",
+                    type: "POST",
+                    data: { ID: IDKom },
+                    success: function (result) {
+                        $("#hmIMGVIEW").html(result)
+                    }
+                });
+                return
+            } else { }
+        }
+        function RegisterAccount() {
+            var province = document.getElementById("province").value;
+            var kota = document.getElementById("kota").value;
+            var parameter = document.getElementById("parameter").value;
+            var position = document.getElementById("position").value;
+            var name = document.getElementById("name").value;
+            var nik = document.getElementById("nik").value;
+            var email = document.getElementById("email").value;
+            var phone = document.getElementById("phone").value;
+            var pass = document.getElementById("password").value;
+            if ((position == null || position == '') || (name == null || name == '') || (nik == null || nik == '') || (email == null || email == '') || (phone == null || phone == '') || (pass == null || pass == '')) {
+                alert("Mohon lengkapi data anda!");
+            } else {
+                var formdata = new FormData();
+                formdata.append("Provinsi", province);
+                formdata.append("Kota", kota);
+                formdata.append("IDRS", parameter);
+                formdata.append("Jabatan", position);
+                formdata.append("Nama", name);
+                formdata.append("IDRegister", nik);
+                formdata.append("Email", email);
+                formdata.append("Phone", phone);
+                formdata.append("Password", pass);
+                    $.ajax({
+                        url: "@Url.Action("Register")",
+                        type: "POST",
+                        data: formdata,
+                        processData: false,
+                        contentType: false,
+                        success: function (result) {
+                            alert("Registrasi Akun Verifikator Sukses");
+                            $("#regNotif").fadeIn();
+                            $('#hmPartView').html(result);
+
+                        }
+                    });
+            }
+
+        }
+        function BacktoLayout() {
+            window.location = "@Url.Action("Layout")";
+        }
+        function RAFacility(id) {
+            $(".hm-col-facb-style").removeClass("btnActive");
+            $(".hm-area-child").removeClass("btnActive");
+            $(".hm-sty-facb-3").removeClass("btnActive");
+            $(".hm-type-frm").removeClass("btnActive");
+            $("#" + id).addClass("btnActive");
+            //-------------------
+            var RA = id.replace("clc", "");
+            $(".hm-area-child").fadeOut("fast");
+            $(".hm-subarea-child").fadeOut("fast");
+            $(".block-inrow").fadeOut("fast");
+            $(".hm-option-child").fadeOut("fast");
+            $(".hm-qty-child").fadeOut("fast");
+            $("#" + RA + " div").show();
+            if (RA == "RA18") {
+                var tabl = document.getElementById("tableData");
+                tabl.setAttribute("style", "height:1200px");
+            } else if (RA != "RA18") {
+                var tabl = document.getElementById("tableData");
+                tabl.removeAttribute("style");
+            }
+        }
+        function AFacility(id) {
+            $(".hm-area-child").removeClass("btnActive");
+            $(".hm-sty-facb-3").removeClass("btnActive");
+            $(".hm-type-frm").removeClass("btnActive");
+            $("#" + id).addClass("btnActive");
+            //----------------------
+            var Aa = id.replace("clc", "");
+            $(".hm-subarea-child").fadeOut("fast");
+            $(".block-inrow").fadeOut("fast");
+            $(".hm-option-child").fadeOut("fast");
+            $("#" + Aa + " div").show();
+            var panel = document.querySelectorAll("[id =" + Aa + "]");
+            var index = 0, length = panel.length;
+            for (; index < length; index++){
+                panel[index].style.padding = ".8% 2%";
+            }
+        }
+        function SAFacility(id) {
+            var SA = id.replace("clc", "");
+            $(".hm-sty-facb-3").removeClass("btnActive");
+            $(".hm-type-frm").removeClass("btnActive");
+            $(".hmfrm" + SA).addClass("btnActive");
+            //----------------------
+            $(".hm-option-child").fadeOut("fast");
+            $(".block-inrow").fadeOut("fast");
+            $("[id = " + SA + "]").show();
+            var panel = document.querySelectorAll("[id =" + SA + "]");
+            var index = 0, length = panel.length;
+            for (; index < length; index++) {
+                panel[index].style.padding = "1% 2%";
+                panel[index].style.zIndex = "99";
+            }
+        }
+        function TFacility(id) {
+            var Ty = id.replace("clc", "");
+            $(".hm-type-frm").removeClass("btnActive");
+            $(".hmfrm" + Ty).addClass("btnActive");
+            $(".hm-option-child").fadeOut("fast");
+            $(".hm-inpt-fac").hide();
+            $(".hm-lyt-room").hide();
+            $("#" + Ty + " div").show();
+            var panel = document.querySelectorAll("[id =" + Ty + "]");
+            var index = 0, length = panel.length;
+            for (; index < length; index++) {
+                panel[index].style.padding = "5.7% 2%";
+            }
+        }
+        function OPRoomPres(id) {
+            document.getElementById(id).onfocusout = function () { SetID(id) };
+            function SetID(id) {
+                var RM = document.getElementById(id).value;
+                var OPid = id.replace("room", "");
+                var OPLyt = "lyt" + OPid;
+                var OPhid = document.getElementById(OPLyt);
+                var OpHd = document.getElementById("send" + OPid);
+                if ((RM != null || RM != "") && (OpHd == false || OpHd == undefined)) {
+                    var InpHd = document.createElement("input");
+                    InpHd.setAttribute("type", "hidden");
+                    InpHd.setAttribute("id", "send" + OPid);
+                    InpHd.setAttribute("name", "Option[]");
+                    InpHd.setAttribute("value", RM);
+                    OPhid.appendChild(InpHd);
+                } else if ((RM == null || RM == "" || RM == "0") && (OpHd == true || OpHd != undefined)) {
+                    OpHd.remove();
+                } else if ((RM != null || RM != "" || RM != "0") && (OpHd != false || OpHd != undefined)) {
+                    OpHd.setAttribute("value", RM);
+                }
+            }
+        }
+        function OPFacility(val) {
+            if (val.checked == true) {
+                var OP = val.id;
+                document.getElementById(OP).setAttribute("checked", "checked");
+                var OPid = OP.replace("clc", "");
+                $("#" + OPid + " div").show();
+                var Room = document.getElementById(OPid);
+                var inpqty = document.createElement("input");
+                inpqty.setAttribute("type", "text");
+                inpqty.setAttribute("class", "hm-inpt-fac");
+                inpqty.setAttribute("autocomplete", "off");
+                inpqty.setAttribute("id", "qty" + OPid);
+                Room.appendChild(inpqty);
+            } else if (val.checked == false){
+                var OP = val.id;
+                var OPid = OP.replace("clc", "");
+                var qt = "qty";
+                var remQty = qt + OPid;
+                $("#" + OPid + " div").hide();
+                var qtfield = document.getElementById(remQty);
+                qtfield.remove();
+            }
+        }
+        var n = 0;
+        function ADFacility(id) {
+            n++;
+            var AD = id.replace("Add", "");
+            var fr = "flr";
+            var rm = "rm";
+            var frl = fr + AD;
+            var rmm = rm + AD;
+            var flrplc = document.getElementById(frl);
+            var div = document.createElement("div");
+            div.setAttribute("id", n + "lyt" + AD);
+            div.setAttribute("class", "hm-lyt-room");
+            flrplc.appendChild(div);
+            var itm = document.createElement("span");
+            itm.setAttribute("id", n + "spn" + AD);
+            itm.setAttribute("style", "padding: 6% 2%;width: 45%;float: left;font-size:9pt")
+            itm.innerHTML = "No. Lantai";
+            div.appendChild(itm);
+            var fld = document.createElement("input");
+            fld.setAttribute("type", "text");
+            fld.setAttribute("id", n + "inp" + AD);
+            fld.setAttribute("autocomplete", "off");
+            fld.setAttribute("tabindex", "1");
+            fld.setAttribute("style", "width:50%;float:right;margin: 4% 2%;");
+            div.appendChild(fld);
+            //----------------------------
+            var rmplc = document.getElementById(rmm);
+            rmplc.setAttribute("style", "padding: 5.7% 2%;");
+            var cls = document.createElement("div");
+            cls.setAttribute("id", n + "cnt" + AD);
+            cls.setAttribute("class", "hm-lyt-room");
+            rmplc.appendChild(cls);
+            var spn = document.createElement("span");
+            spn.setAttribute("id", n + "tex" + AD);
+            spn.setAttribute("style", "padding: 6% 2%;width: 40%;float: left;font-size:9pt");
+            spn.innerHTML = "Jml Ruang";
+            cls.appendChild(spn);
+            var inp = document.createElement("input");
+            inp.setAttribute("type", "text");
+            inp.setAttribute("id", n + "rom" + AD);
+            inp.setAttribute("autocomplete", "off");
+            inp.setAttribute("disabled", "on");
+            inp.setAttribute("tabindex", "2");
+            inp.setAttribute("style", "width:30%;float:left;margin: 4% 2%;");
+            cls.appendChild(inp);
+            var del = document.createElement("span");
+            del.setAttribute("id", n + "del" + AD);
+            del.setAttribute("class", "hm-del-room");
+            del.setAttribute("onclick", "DelRoom(this.id)");
+            del.innerHTML = "x";
+            cls.appendChild(del);
+            //----------------------------
+            var InpID = n + "inp" + AD;
+            document.getElementById(InpID).onkeypress = function () { RoomActive(InpID) };
+            function RoomActive(InpID) {
+                var FieldID = InpID.replace("inp", "rom");
+                document.getElementById(FieldID).removeAttribute("disabled");
+                document.getElementById(FieldID).onfocusout = function () { GetValue() };
+                function GetValue() {
+                    var flrval = document.getElementById(InpID).value;
+                    var romval = document.getElementById(FieldID).value;
+                    var IDHidden = id.replace("Add", "");
+                    var IDHid = FieldID.replace("rom", "cnt");
+                    var IDSend = IDHid.replace("cnt", "hidd");
+                    var Hid = document.createElement("input");
+                    var elemID = document.getElementById(IDHid);
+                    Hid.setAttribute("type", "hidden");
+                    Hid.setAttribute("name", "OptionLR[]");
+                    Hid.setAttribute("id", IDHidden);
+                    Hid.setAttribute("value", flrval);
+                    elemID.appendChild(Hid);
+                    var elemQTY = document.createElement("input");
+                    elemQTY.setAttribute("type", "hidden");
+                    elemQTY.setAttribute("name", "QtyRoom[]");
+                    elemQTY.setAttribute("id", IDHidden);
+                    elemQTY.setAttribute("value", romval);
+                    elemID.appendChild(elemQTY);
+                    if ((flrval != "" && romval != "") || (flrval != null && romval != null)) {
+                        document.getElementById(InpID).setAttribute("disabled", "on");
+                        document.getElementById(FieldID).setAttribute("value", romval);
+                        document.getElementById(FieldID).setAttribute("disabled", "on");
+                    }
+                }
+            }
+        }
+        function DelRoom(id) {
+            var FLR = id.replace("del", "lyt");
+            var ROM = id.replace("del", "cnt");
+            var HID = id.replace("del", "hidd");
+            $("#" + FLR).remove();
+            $("#" + ROM).remove();
+            $("#" + HID).remove();
+        }
+
+        function SetFacilitySave() {
+            var ArrayA = $('input[name=Area]:checked').map(function (_, a) {
+                return $(a).val();
+            }).get();
+            var ArraySA = $('input[name=SubArea]:checked').map(function (_, sa) {
+                return $(sa).val();
+            }).get();
+            var ArrayTY = $('input[name=Type]:checked').map(function (_, ty) {
+                return $(ty).val();
+            }).get();
+            //-----------
+            var ArrayOPR = $("input[name='Option[]']").map(function (_, op) {
+                var OPSid = $(op).attr('id').replace("send", "");
+                var OPSval = $(op).val();
+                var FullArrayRoom = new Array(OPSid + '[' + OPSval + ']');
+                return [FullArrayRoom];
+            }).get();
+
+            var ArrayOPRL = $("input:hidden[name='OptionLR[]']").map(function (_, oprl) {
+                var OPRLin = $(oprl).attr('id');
+                var OPRLval = $(oprl).val();
+                var FullArrayRL = new Array(OPRLin + '[' + OPRLval + ']');
+                return [FullArrayRL];
+            }).get();
+
+            var ArrayQTYR = $("input:hidden[name='QtyRoom[]']").map(function (_, qtyrm) {
+                var QRTTval = $(qtyrm).val();
+                return QRTTval;
+            }).get();
+
+            $.ajax({
+                url: "@Url.Action("SaveFacility")",
+                type: "POST",
+                data: { "Area": ArrayA, "SubArea": ArraySA, "Type": ArrayTY, "OptionRoom": ArrayOPR, "OptionRL": ArrayOPRL, "QTYRoom": ArrayQTYR},
+                traditional: true,
+                success: function (result) {
+                    alert('Set Facility Successed');
+                    window.location = "/Checker/Layout";
+                    $.ajax({
+                        url: "@Url.Action("Register")",
+                        type: "GET",
+                        success: function (result) {
+                            $('#hmPartView').html(result);
+                        }
+                    });
+                }
+            });
+        }
+        function SPKCam(idk, round, periode, idunix) {
+            $(".hm-spk-modal").show();
+            $(".hm-spk-modal").attr("id", "SPKCamera" + idk);
+            $(".hm-spk-mclose").attr("onclick", "CloseSPKCam('SPKCamera" + idk + "')");
+            document.getElementById("UploadAfterImage").onclick = function() { UploadImage() };
+            function UploadImage() {
+                let image = document.getElementById("SPKCapture").src;
+                let unix = idunix.replace("Round ", "");
+                $.ajax({
+                    url: "@Url.Action("SPKImageUpload")",
+                    type: "POST",
+                    data: { ImageAfter: image, Round: round, Periode: periode, IDUnix: unix },
+                    success: function GotoSPK(ParamSPK) {
+                        let k = round.replace("Round ", "");
+                        $("#SPKCamera" + k).hide();
+                        $.ajax({
+                            url: "/Checker/SPK",
+                            type: "POST",
+                            data: { Round: round, Periode: periode },
+                            success: function (a) {
+                                $('#tmpSPK').html(a);
+                            }
+                        });
+                    }
+                });
+            }
+        }
+        function SubmitSPK(round, periode) {
+            $.ajax({
+                url: "/Checker/SPKSubmit",
+                type: "POST",
+                data: { Round: round, Periode: periode },
+                success: function FnhSPK(ParamSPK) {
+                    $('#tmpSPK').html(a);
+                    //alert(`Terima kasih telah menyelesaikan ${round}`);
+                    //$('#tmpSPK').html(a);
+                    $.ajax({
+                        url: "/Checker/SPK",
+                        type: "POST",
+                        data: { Round: round, Periode: periode },
+                        success: function (a) {
+                            $('#tmpSPK').html(a);
+                            $("#SubmitSPK").css("display", "none");
+                            $("#printPDFSPK").css("display", "inline-block");
+                        }
+                    });
+
+                }
+            });
+        }
+        function CloseSPKCam(k) {
+            $("#" + k).hide();
+        }
+        function Currency(id) {
+            var rupiah = document.getElementById(id);
+            if (rupiah) {
+                rupiah.addEventListener("keyup", function (e) {
+                    rupiah.value = formatRupiah(this.value, "Rp. ");
+                });
+                function formatRupiah(angka, prefix) {
+                    var number_string = angka.replace(/[^,\d]/g, "").toString(),
+                        split = number_string.split(","),
+                        sisa = split[0].length % 3,
+                        rupiah = split[0].substr(0, sisa),
+                        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+                    if (ribuan) {
+                        separator = sisa ? "." : "";
+                        rupiah += separator + ribuan.join(".");
+                    }
+                    rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
+                    return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
+                }
+            }
+        }
+
+        function MathPay(id) {
+            var Budtid = id.replace("pyout", "budget");
+            var Quarl = id.replace("pyout", "QAl");
+            let PriceQ = parseFloat($('#' + id).val()) - parseFloat($('#' + Budtid).val());
+            $('#' + Quarl).val(PriceQ.toFixed(2));
+
+        }
+        function SubmitRAB() {
+            var Data = [{}];
+            var Budget = $("input:text[name='budget[]']").map(function (_, rab) {
+                var RABid = $(rab).val();
+                var ArrBud = new Array(RABid);
+                return ArrBud;
+            }).get();
+            var Payin = $("input:text[name='payout[]']").map(function (_, pay) {
+                var Payval = $(pay).val();
+                var ArrPay = new Array(Payval);
+                return ArrPay;
+            }).get();
+            var Quarel = $("input:text[name='quareel[]']").map(function (_, qrl) {
+                var Qrlvall = $(qrl).val();
+                var ArrQRL = new Array(Qrlvall);
+                return ArrQRL;
+            }).get();
+            var DataRAB = [];
+            for (var i = 0; i < Payin.length && i < Budget.length && Quarel.length; i++){
+                DataRAB.push({ Budget: Budget[i], PayOut: Payin[i], Quareel: Quarel[i] });
+            }
+            DataRAB = JSON.stringify({ "Data": DataRAB });
+            $.ajax({
+                url: "@Url.Action("RABSubmit")",
+                type: "POST",
+                data: DataRAB,
+                dataType: "json",
+                traditional: true,
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    $('#hmPartView').html(result);
+                }
+            });
+        }
+        function ExePort(r, pr) {
+            $.ajax({
+                url: "@Url.Action("ExePort")",
+                type: "POST",
+                data: { Round: r, Periode: pr },
+                success: function (result) {
+                    $('#hmPartView').html(result);
+                }
+            });
+        }
+        //============================================== Validator Function ===========================
+        function ValidatorNav(id) {
+            $.ajax({
+                url: "/Validator/" + id,
+                type: "GET",
+                success: function (result) {
+                    $('#VldtrLayout').html(result);
+                }
+            });
+        }
+        function BacktoRegAccount() {
+            $('#Account').addClass("live");
+            $.ajax({
+                url: "/Validator/Account",
+                type: "GET",
+                success: function (result) {
+                    $('#VldtrLayout').html(result);
+                }
+            });
+        }
+        function AddRS() {
+            $('ul.nav-left li').removeClass("live");
+            $('#Account').addClass("live");
+            $.ajax({
+                url: "/Validator/RegisterRS",
+                type: "GET",
+                success: function (result) {
+                    $('#VldtrLayout').html(result);
+                }
+            });
+        }
+        function AddAccountUser(id) {
+            $('ul.nav-left li').removeClass("live");
+            $('#Account').addClass("live");
+            $.ajax({
+                url: "/Validator/RegisterAccount",
+                type: "GET",
+                data: { "IDRS": id },
+                success: function (result) {
+                    $('#VldtrLayout').html(result);
+                }
+            });
+        }
+        function ModifyAccount(id) {
+            $('ul.nav-left li').removeClass("live");
+            $('#Account').addClass("live");
+            $.ajax({
+                url: "@Url.Action("ModifyAccount")",
+                type: "GET",
+                data: { IDRegister: id },
+                success: function (result) {
+                    $('#VldtrLayout').html(result);
+                }
+            });
+        }
+        function ModifyRS(id) {
+            $('ul.nav-left li').removeClass("live");
+            $('#Account').addClass("live");
+            $.ajax({
+                url: "@Url.Action("ModifyRS")",
+                type: "GET",
+                data: {IDRS: id},
+                success: function (result) {
+                    $('#VldtrLayout').html(result);
+                }
+            });
+        }
+        function SetModifyRS() {
+            var MregionRS = $("#MregionRS").val();
+            var MprovinceRS = $("#MprovinceRS").val();
+            var McityRS = $("#MityRS").val();
+            var MaddressRS = $("#MaddressRS").val();
+            var MnameRS = $("#MnameRS").val();
+            var MphoneRS = $("#MphoneRS").val();
+            var MnikRS = $("#MnikRS").val();
+            var Data = new FormData();
+            Data.append("MRegionRS", MregionRS); Data.append("MProvinsiRS", MprovinceRS); Data.append("MCityRS", McityRS);
+            Data.append("MAddressRS", MaddressRS); Data.append("MRSNameRS", MnameRS); Data.append("MPhoneRS", MphoneRS);
+            Data.append("MIDRSRS", MnikRS);
+            $.ajax({
+                url: "@Url.Action("SaveModifyRS")",
+                type: "POST",
+                data: Data,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    $('#VldtrLayout').html(result);
+                }
+            });
+        }
+        function DeleteRS(id) {
+            $.ajax({
+                url: "@Url.Action("DeleteRS")",
+                type: "POST",
+                data: {"IDRS": id},
+                success: function (result) {
+                    $('#VldtrLayout').html(result);
+                }
+            });
+        }
+        function DeleteAccount(id) {
+            $.ajax({
+                url: "@Url.Action("DeleteAccount")",
+                type: "POST",
+                data: {"IDReg": id},
+                success: function (result) {
+                    $('#VldtrLayout').html(result);
+                }
+            });
+        }
+        function Panel(id) {
+            var Slid = "panel" + id;
+            $("#" + Slid).slideToggle('slow');
+        }
+        function SaveRS() {
+            var regionRS = $("#regionRS").val();
+            var provinceRS = $("#provinceRS").val();
+            var cityRS = $("#cityRS").val();
+            var addressRS = $("#addressRS").val();
+            var nameRS = $("#nameRS").val();
+            var phoneRS = $("#phoneRS").val();
+            var nikRS = $("#nikRS").val();
+            var Data = new FormData();
+            Data.append("RegionRS", regionRS); Data.append("ProvinsiRS", provinceRS); Data.append("CityRS", cityRS);
+            Data.append("AddressRS", addressRS); Data.append("RSNameRS", nameRS); Data.append("PhoneRS", phoneRS);
+            Data.append("IDRSRS", nikRS);
+            $.ajax({
+                url: "@Url.Action("RegisterRS")",
+                type: "POST",
+                data: Data,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    $('#VldtrLayout').html(result);
+                }
+            });
+        }
+        function SaveAccount() {
+            var provinceAC = $("#provinceAC").val();
+            var kotaAC = $("#kotaAC").val();
+            var parameterAC = $("#parameterAC").val();
+            var positionAC = $("#positionAC").val();
+            var nameAC = $("#nameAC").val();
+            var nikAC = $("#nikAC").val();
+            var emailAC = $("#emailAC").val();
+            var phoneAC = $("#phoneAC").val();
+            var passAC = $("#passwordAC").val();
+            var ADDAc = new FormData();
+            ADDAc.append("ProvinsiAC", provinceAC); ADDAc.append("KotaAC", kotaAC); ADDAc.append("IDRSAC", parameterAC);
+            ADDAc.append("JabatanAC", positionAC); ADDAc.append("NamaAC", nameAC); ADDAc.append("EmailAC", emailAC);
+            ADDAc.append("IDRegisterAC", nikAC); ADDAc.append("PhoneAC", phoneAC); ADDAc.append("PasswordAC", passAC);
+            $.ajax({
+                url: "@Url.Action("RegisterAcc")",
+                type: "POST",
+                data: ADDAc,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    $('#VldtrLayout').html(result);
+
+                }
+            });
+        }
+        function SaveModify() {
+            var provinceMDF = $("#provinceMDF").val();
+            var regionMDF = $("#regionMDF").val();
+            var parameterMDF = $("#parameterMDF").val();
+            var positionMDF = $("#positionMDF").val();
+            var nameMDF = $("#nameMDF").val();
+            var nikMDF = $("#nikMDF").val();
+            var emailMDF = $("#emailMDF").val();
+            var phoneMDF = $("#phoneMDF").val();
+            var passMDF = $("#passwordMDF").val();
+            var Modify = new FormData();
+            Modify.append("ProvinsiMDF", provinceMDF); Modify.append("RegionMDF", regionMDF); Modify.append("IDRSMDF", parameterMDF);
+            Modify.append("JabatanMDF", positionMDF); Modify.append("NamaMDF", nameMDF); Modify.append("EmailMDF", emailMDF);
+            Modify.append("IDRegisterMDF", nikMDF); Modify.append("PhoneMDF", phoneMDF); Modify.append("PasswordMDF", passMDF);
+            $.ajax({
+                url: "@Url.Action("SaveModifyAcc")",
+                type: "POST",
+                data: Modify,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    $('#VldtrLayout').html(result);
+                }
+            });
+        }
+         function GetExePort(obj) {
+             let today = new Date();
+             let mm = String(today.getMonth() + 1).padStart(2, '0');
+             let yyyy = today.getFullYear();
+             let DateNow = yyyy + mm;
+
+             let ParamIDRS = obj.dataset.idrs;
+             let ParamRound = obj.dataset.round;
+             let ParamPeriode = obj.dataset.periode;
+
+             let ValidData = []
+             const valPeriode = document.querySelectorAll(".valuePeriodeVal");
+             valPeriode.forEach(m => ValidData.push({
+                 Periode: m.dataset.periodecheck,
+                 IDRS: m.dataset.idrscheck,
+                 Round: m.dataset.roundcheck
+             }));
+             let Data = ValidData.filter(m => m.IDRS == ParamIDRS && m.Round == ParamRound);
+             if (Data.length >= 1) {
+                 if (ParamPeriode == "" || ParamPeriode == null) {
+                     let GetData = Data.find(n => n.Periode == DateNow);
+                     if (GetData == null) {
+                         alert("Maaf Data yang anda cari tidak ditemukan");
+                     } else {
+                        $.ajax({
+                            url: "@Url.Action("ExeportLayout")",
+                            type: "GET",
+                             data: { Round: ParamRound, IDRS: ParamIDRS, Periode: DateNow},
+                            success: function (result) {
+                                $('#VldtrLayout').html(result);
+                            }
+                        });
+                     }
+                 } else {
+                     let GetData = Data.find(n => n.Periode == ParamPeriode);
+                     if (GetData == null) {
+                         alert("Maaf Data yang anda cari tidak ditemukan");
+                     } else {
+                         $.ajax({
+                            url: "@Url.Action("ExeportLayout")",
+                             type: "GET",
+                             data: { Round: ParamRound, IDRS: ParamIDRS, Periode: ParamPeriode },
+                            success: function (result) {
+                                $('#VldtrLayout').html(result);
+                            }
+                        });
+                     }
+                 }
+             } else if (Data.length < 1) {
+                 alert("Maaf Data yang anda cari tidak ditemukan");
+             }
+
+        }
+        function BacktoReport(periode) {
+            $('ul.nav-left li').removeClass("live");
+            $('#ExecutiveReport').addClass("live");
+            $.ajax({
+                url: "@Url.Action("ExecutiveReport")",
+                type: "GET",
+                success: function (result) {
+                    $('#VldtrLayout').html(result);
+                    var monthNames = ["January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"
+                    ];
+                    let Yrs = periode.substring(0, 4);
+                    let DateChange = monthNames[parseInt(periode.substring(6, 4) - 1)] + " " + Yrs;
+                    $("#DateNameNow").text(DateChange);
+                    let getField = document.querySelectorAll("#GtPeriod");
+                    for (let i = 0; i < getField.length; i++) {
+                        getField[i].setAttribute("data-periode", periode);
+                    }
+                    let SelectOption = document.querySelector("#hmValPeriodeSlectd option[value='']");
+                    SelectOption.setAttribute("value", periode);
+                    SelectOption.innerHTML = DateChange;
+                }
+            });
+        }
+        function Validation(v, idrs, r, pr, s1, s2, s3, ss) {
+            if (s1 == "" && ss == "Validator 1" || s1 == "Approve" && s2 == "" && ss == "Validator 2" || s1 == "Approve" && s2 == "Approve" && s3 == "" && ss == "Validator 3") {
+                 $.ajax({
+                    url: "@Url.Action("Validation")",
+                    type: "POST",
+                    data: { Nilai: v, IDRS: idrs, Round: r, Periode: pr },
+                    success: function (result) {
+                        $('#VldtrLayout').html(result);
+                        alert('Terima kasih, Laporan Terlah di Tandatangani');
+                    }
+                });
+            } else {
+                if (ss == "Validator 2") {
+                    alert("Maaf Kepala Departemen Penunjang Umum Belum Menandatangani Laporan ini")
+                } else if (ss == "Validator 3") {
+                    alert("Maaf Direktur Regional Belum Menandatangani Laporan ini")
+                }
+            }
+
+        }
+        function ApproveRAB(idrs, r, pr, s1, s2, s3, ss) {
+            if (s1 == "" && ss == "Validator 1" || s1 == "Diketahui" && s2 == "" && ss == "Validator 2" || s1 == "Diketahui" && s2 == "Diketahui" && s3 == "" && ss == "Validator 3") {
+                $.ajax({
+                    url: "@Url.Action("SaveRABValue")",
+                    type: "POST",
+                    data: { IDRS: idrs, Round: r, Periode: pr },
+                    success: function (result) {
+                        $('#VldtrLayout').html(result);
+                        alert('Terima kasih, Laporan Terlah di Tandatangani');
+                        $("#btnApprfRAB").css("display", "none");
+                        $("#printPDFRAB").css("display", "inline-block");
+                    }
+                });
+            } else {
+                if (ss == "Validator 2") {
+                    alert("Maaf Kepala Departemen Penunjang Umum Belum Menandatangani Laporan ini")
+                } else if (ss == "Validator 3") {
+                    alert("Maaf Direktur Regional Belum Menandatangani Laporan ini")
+                }
+            }
+
+        }
+        //====================================== Verifikator Function =============================================
+        function VefirikatorNav(id) {
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0');
+            var yyyy = today.getFullYear();
+            let Period = `${yyyy}-${mm}`;
+            if (id == 'RAB') {
+                $.ajax({
+                    url: "/Verifikator/RAB/",
+                    type: "POST",
+                    data: { Periode: Period },
+                    success: function (result) {
+                        $('#VrifikatLayout').html(result);
+                    }
+                });
+            } else if (id == 'Round') {
+                $.ajax({
+                    url: "/Verifikator/Round/",
+                    type: "POST",
+                    data: { Periode: Period },
+                    success: function (result) {
+                        $('#VrifikatLayout').html(result);
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: "/Verifikator/" + id,
+                    type: "GET",
+                    success: function (result) {
+                        $('#VrifikatLayout').html(result);
+                    }
+                });
+            }
+        }
+        function BacktoAccount(pr) {
+            $.ajax({
+                url: "/Verifikator/Round",
+                type: "GET",
+                data: {Periode:pr},
+                success: function (result) {
+                    $('#VrifikatLayout').html(result);
+                }
+            });
+        }
+        function Penilaian(r, pr) {
+            $.ajax({
+                url: "@Url.Action("Penilaian")",
+                type: "GET",
+                data: { Round: r, Periode: pr},
+                success: function (result) {
+                    $('#VrifikatLayout').html(result);
+                }
+            });
+        }
+        function Execute(e, m) {
+            var comment = $("#VerComment").val();
+            var periode = $("#VerPeriode").val();
+
+            $.ajax({
+                url: "@Url.Action("Execute")",
+                type: "POST",
+                data: { Round:m, Submit: e, Comment: comment, Periode: periode},
+                success: function (result) {
+                    $('#VrifikatLayout').html(result);
+                }
+            });
+        }
+        function JobReport(r, p) {
+            $.ajax({
+                url: "@Url.Action("ExcReport")",
+                type: "GET",
+                data: { Round:r, Periode: p},
+                success: function (result) {
+                    $('#VrifikatLayout').html(result);
+                }
+            });
+        }
+
+    </script>
+    <!---============== Dashboard ===================-->
+
+    <script>
+        $(document).ready(function () {
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0');
+            var yyyy = today.getFullYear();
+            var monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+            var monthNow = monthNames[today.getMonth()];
+            $("#DashboardDate").text(monthNow + " " + yyyy);
+            $("#PorgDashboardDate").text(monthNow + " " + yyyy);
+            $("#ParaDashboard").text(monthNow + " " + yyyy);
+            $("#ValueDashboardDate").text(monthNow + " " + yyyy);
+            $("#DashboardYear").text(yyyy);
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <!---======================= ExePort Validator ========================-->
+    <script>
+        function Region(id) {
+            var rs = "Panel_" + id.replace(" ", "_");
+            $("#" + rs).slideToggle("slow");
+        }
+        function RegionRAB(id) {
+            var rs = "RABPanel_" + id.replace(" ", "_");
+            $("#" + rs).slideToggle("slow");
+        }
+        function RegionSPK(id) {
+            var rs = "SPKPanel_" + id.replace(" ", "_");
+            $("#" + rs).slideToggle("slow");
+        }
+        function MobileBTN() {
+            $('#mobileNAV').slideToggle();
+        }
+    </script>
+    <!---===================== End ExePort Validator ======================-->
+
+    <script src="~/Scripts/DTPeer.js"></script>
+    <script src="~/Scripts/RealTime.js"></script>
+    <!--------------- End Function --------------->
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    @RenderBody()
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

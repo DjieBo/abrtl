@@ -1,0 +1,23 @@
+﻿@model Hermina_ABRTL.ViewModel.DataSPK
+
+<div class="hm-layout screen-page">
+    <div class="hm-row hm-spk-title-nw">
+        <h2>List Job Report @Model.NamaRS</h2>
+        @foreach (var a in Model.ListSPK) {
+            <div class="SPKList VisibleRound" data-periode="@a.Periode" data-round="@a.Round" data-status="@a.Status"></div>
+        }
+
+        @foreach (var b in Model.listAppSPK) {
+            <div class="SPKApproveList VisibleRound" data-periode="@b.PeriodeApp" data-round="@b.RoundApp" data-time="@b.TimeStartApp"></div>
+        }
+
+        <div class="hm-row hm-sclv">
+            <div class="hm-spk-slc">
+                <div class="hm-spk-slc-hl"><select id="SPKperiode"><option> Select Periode </option></select></div>
+                <div class="hm-spk-slc-hl"><select id="SPKround" disabled><option> Select Round </option></select></div>
+            </div>
+        </div>
+    </div>
+    <div class="hm-tmspk" id="tmpSPK"></div>
+</div>
+<script src="~/Scripts/SPKProcess.js"></script>

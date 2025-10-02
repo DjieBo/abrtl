@@ -1,0 +1,32 @@
+﻿@model Hermina_ABRTL.ViewModel.DataRSVM
+<div id="ResultRoundArea">
+    <div class="hm-cam-modal" id="modalCamera">
+        <div class="hm-modal-formPic">
+            <div class="hm-modal-headPic">
+                <span class="hm-close-modalPic" id="closeModal" onclick="closeModal(this.id)">X</span>
+                <h2></h2>
+            </div>
+            <div class="hm-body-headPic">
+                @Html.Partial("Camera")
+            </div>
+        </div>
+    </div>
+    <div class="hm-layout screen-page">
+        <div class="hm-row hm-nav-back">
+            <span class="backtoForm" id="FormChecker" onclick="Nav(this.id)"><i class="fas fa-chevron-left"></i> Back to previous page</span>
+        </div>
+
+        <div class="hm-row hm-area-chc">
+            <ul class="hm-list-area">
+                @foreach (var item in Model.listAreaRound)
+                {
+                    <li onclick="RoundArea('@(item.Round)', '@(item.IDRoundArea)', '@(item.Round)')"> @item.RoundArea ( @item.dtCheck / @item.dtTotal)</li>
+                }
+            </ul>
+        </div>
+
+        <div class="hm-row hm-det-area" id="AreaView">
+            @Html.Partial("RoundArea", Model)
+        </div>
+    </div>
+</div>

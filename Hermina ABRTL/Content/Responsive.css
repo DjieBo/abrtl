@@ -1,0 +1,102 @@
+﻿body {}
+
+/*---( 1280 x 800 )---*/
+@media (max-width: 1280px) {
+	.hm-form-login {width: 40%;margin: 3% auto;}
+    .hm-login-footer-form input[type=submit] {font-size: 160%;padding: 15px 0;}
+    .hm-login-body-form input[type=text]{font-size: 15pt;}
+    .hm-header-label h3 {font-size: 20pt;}
+    .hm-header-label span {font-size: 10pt;}
+    ul.nav-left li {font-size: 12pt;margin: 0 4px;padding: 2.2% 15px;}
+    .hm-com-pie {min-height: 220px;}
+    ul.nav-right li {padding: 15% 20px;font-size: 12pt;}
+    .hm-reg-form-col input[type=text], .hm-reg-row-form input[type=text], .hm-reg-form-col input[type=password], .hm-reg-row-form textarea {font-size: 13pt;}
+    /*-------- Form Checker ---------*/
+    .hm-main-round h4 {font-size: 170%;}
+    .hm-check-link{font-size: 120%;}
+    .hm-list-round{min-height: 195px;}
+    .hm-main-round p.infoInActive{font-size: 120%;padding-top: 4%;}
+    .hm-stat-round {font-size: 110%;}
+    .hm-col-round {width: 60%;}
+    .hm-list-round {width: 48%;margin-bottom: 3%;}
+    .hm-col-time {width: 38%;}
+    .hm-time-info p{font-size: 120%;}
+    .hm-head-list-data {width: 101.1%;}
+    .hm-modal-formPic {width: 75%;height: 60vh;}
+    .hm-row-camera video, .hm-row-camera canvas {min-height: 260px;}
+    .hm-row-camera {min-height: 330px;}
+    .hm-col-picture{border:none;}
+    .hm-camera-save, .hm-camera-save img{min-height: 330px;}
+    .button-camera {margin-top: 2%;}
+    .hm-btn-area button{padding: 1.5% 100px;font-size: 130%;}
+    /*------------ RAB --------------*/
+    .hm-main-round div p{font-size: 120%}
+    .hm-main-round div{margin-bottom: 3%;}
+    .hm-subcol{font-size: 9pt;padding: .5%;}
+    .hm-rab-merge-style{font-size: 9.6pt;}
+    .hm-rab-font-style {font-size: 75%;}
+    .hm-rab-sel-style label {font-size: 80%;padding: 1% 0;}
+    .hm-rab-input-style input[type=text] {font-size: 80%;}
+    .hm-rab-symbol-style {padding: .88% .5%;}
+}
+
+@media (max-width: 800px) {
+	.hm-form-login {width: 70%;margin: 20% auto;}
+    .hm-login-footer-form input[type=submit] {font-size: 160%;padding: 15px 0;}
+    .hm-login-body-form input[type=text]{font-size: 15pt;}
+    .hm-header-label h3 {font-size: 20pt;}
+    .hm-header-label span {font-size: 10pt;}
+    ul.nav-left li {font-size: 12pt;margin: 0 4px;padding: 2.2% 15px;}
+    .hm-com-pie {min-height: 270px;margin-bottom: 2%;}
+    ul.nav-right li {padding: 15% 20px;font-size: 12pt;}
+    .hm-reg-form-col input[type=text], .hm-reg-row-form input[type=text], .hm-reg-form-col input[type=password], .hm-reg-row-form textarea {font-size: 13pt;}
+    .hm-desktop-mode{display: none;}
+    .hm-mobile-mode{display: block;width: 20%;float: right;position: relative;}
+    .hm-mobile-mode ul{display: none;position: absolute;background: #f1f1f1;z-index: 9;top: 58px;box-shadow: 0px 0px 2px #333;margin: 0;box-sizing: border-box;padding: 0;width: 160%;right: 0;}
+    .hm-mobile-mode ul li{list-style: none;font-size: 130%;width: 100%;float: left;;padding: 4% 5%;transition:all .5s;}
+    .hm-mobile-mode ul li:hover{background:white;}
+    .hm-mobile-mode span{font-size: 180%;float: right;padding: 8% 0;color: white;}
+    .hm-header-label {width: 20%;}
+    .hm-header-navigator {width: 75%;}
+    /*.hide-menu{display: none;}
+    .show-menu{display: block;}*/
+    .hm-reg-form-col {width: 100%;}
+    .button-area button {padding: 3% 9%;}
+    .hm-com-pie {width: 49.2%;}
+    /*-------- Form Checker ---------*/
+    .hm-main-round h4 {font-size: 170%;}
+    .hm-check-link{font-size: 120%;}
+    .hm-list-round{min-height: 195px;}
+    .hm-main-round p.infoInActive{font-size: 120%;padding-top: 4%;}
+    .hm-stat-round {font-size: 110%;}
+    .hm-col-round {width: 60%;}
+    .hm-list-round {width: 100%;margin-bottom: 3%;}
+    .hm-col-time {width: 38%;}
+    .hm-time-info p{font-size: 120%;}
+    .hm-head-list-data {width: 101.1%;}
+    .hm-modal-formPic {width:70%;height: 75vh}
+    .hm-row-camera video, .hm-row-camera canvas {min-height: 250px;}
+    .hm-row-camera {min-height: 250px;}
+    .hm-col-picture{border:none;width: 100%;}
+    .hm-camera-save, .hm-camera-save img{min-height: 330px;}
+    .button-camera {margin-top: 2%;}
+    .hm-btn-area button{padding: 1.5% 100px;font-size: 130%;}
+    ul.table-body{height: 70vh;}
+    ul.table-head li.hm-col-list-style {font-size: 95%;}
+    .hm-col-img{margin-top:2%;}
+    /*------------ RAB --------------*/
+    .hm-main-round div p{font-size: 150%}
+    .hm-main-round div{margin-bottom: 3%;}
+    .hm-subcol{font-size: 9pt;padding: .5%;}
+    .hm-rab-merge-style{font-size: 9.6pt;}
+    .hm-rab-font-style {font-size: 75%;}
+    .hm-rab-sel-style label {font-size: 80%;padding: 1% 0;}
+    .hm-rab-input-style input[type=text] {font-size: 80%;}
+    .hm-rab-symbol-style {padding: .88% .5%;}
+    /*--------------- SPK --------------*/
+    .hm-spk-slc {width: 80%;}
+    .hm-spk-slc-hl select {font-size: 120%;}
+    .hm-spk-title{}
+    .hm-rabform{display: none;}
+    .hm-attnt-rab{display: block;}
+}

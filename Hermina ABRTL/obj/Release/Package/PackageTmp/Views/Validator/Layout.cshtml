@@ -1,0 +1,27 @@
+﻿
+
+
+<header>
+    <div class="hm-header-label hm-header-style">
+        <h3>Validator</h3>
+        <span>------</span>
+    </div>
+    <div class="hm-header-navigator hm-header-style">
+        <ul class="nav-left">
+            <li id="Dashboard" class="live" onclick="ValidatorNav(this.id)">Dashboard</li>
+            <li id="ExecutiveReport" onclick="ValidatorNav(this.id)">Executive Report</li>
+            <li id="RAB" onclick="ValidatorNav(this.id)">RAB</li>
+            <li id="SPK" onclick="ValidatorNav(this.id)">Job Report</li>
+            <li id="Account" onclick="ValidatorNav(this.id)">Create Account</li>
+            @*<li id="Certificate" onclick="ValidatorNav(this.id)">Certification</li>*@
+        </ul>
+        <ul class="nav-right">
+            <li onclick="Logout()">Log out</li>
+        </ul>
+    </div>
+</header>
+
+
+<section id="VldtrLayout">
+    @*@Html.Partial("Dashboard")*@
+</section>

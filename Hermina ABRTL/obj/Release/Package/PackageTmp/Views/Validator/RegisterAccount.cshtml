@@ -1,0 +1,77 @@
+﻿@model Hermina_ABRTL.ViewModel.RegisterVM
+
+<div class="hm-reg-layout">
+    <div class="hm-row hm-regs-rs">
+        <span onclick="BacktoRegAccount()"><i class="fas fa-chevron-left"></i> Back to Account Page</span>
+    </div>
+    <div class="hm-reg hm-reg-wrap">
+        <h2>Register Checker Account <br> Management ABRTL-RL</h2>
+        <div class="hm-reg-form">
+            <form method="post" id="formregister">
+                <div class="hm-reg-row-form">
+                    <div class="hm-reg-form-col">
+                        <label>Province</label><br>
+                        @Html.TextBoxFor(x => x.provinceAC, new { id = "provinceAC", @class = "hm-col-text-field", @placeholder = "Provinsi", @readonly = "true" })
+                        @*<select id="provinceAC" name="province" placeholder="Select Province">
+                            <option disabled selected class="option-plhdr"> Select Provice</option>
+                            <option> DKI Jakarta</option>
+                        </select>*@
+                    </div>
+                    <div class="hm-reg-form-col">
+                        <label>Kota</label><br>
+                        @Html.TextBoxFor(x => x.KotaAC, new { id = "kotaAC", @class = "hm-col-text-field", @placeholder = "Kota", @readonly = "true" })
+                        @*<select  name="region" placeholder="Select Region">
+                            <option disabled selected class="option-plhdr"> Select Region</option>
+                            <option> Regional 1</option>
+                        </select>*@
+                    </div>
+                </div>
+                <div class="hm-reg-row-form">
+                    <div class="hm-reg-form-col">
+                        <label>Parameter</label><br>
+                        @Html.TextBoxFor(x => x.parameterAC, new { id = "parameterAC", @class="hm-col-text-field", @placeholder = "IDRS", @readonly = "true" })
+                        @*<input type="text" name="parameter" id="parameterAC" class="hm-col-text-field" placeholder="Parameter" />*@
+                    </div>
+                    <div class="hm-reg-form-col">
+                        <label>Position</label><br>
+                        @Html.TextBox("positionAC", "Manager Penunjang Umum (Checker)", new { id = "positionAC", @class = "hm-col-text-field", @readonly = "true" })
+                        @*<select id="positionAC" name="position" placeholder="Select Region">
+                            <option disabled selected class="option-plhdr"> Select Position</option>
+                            <option> Regional 1</option>
+                        </select>*@
+                    </div>
+                </div>
+                <div class="hm-reg-row-form">
+                    <label>Name</label><br>
+                    @Html.TextBox("nameAC", null, new { id = "nameAC", @style = "width:95%;padding:2% 3%;", @placeholder = "Input your name", @autocomplete = "off", @required = "on" })
+                    @*<input type="text" name="name" id="nameAC" style="width:95%;padding:2% 3%;" placeholder="Input your name" />*@
+                </div>
+                <div class="hm-reg-row-form">
+                    <div class="hm-reg-form-col">
+                        <label>NIK</label><br>
+                        @Html.TextBox("nikAC", null, new { id = "nikAC", @class = "hm-col-text-field", @placeholder = "ID 93034 XXXX XXXX", @autocomplete = "off", @required = "on" })
+                        @*<input type="text" name="nik" id="nikAC" class="hm-col-text-field" placeholder="ID 93034 XXXX XXXX" />*@
+                    </div>
+                    <div class="hm-reg-form-col">
+                        <label>Email</label><br>
+                        @Html.TextBox("emailAC", null, new { id = "emailAC", @class = "hm-col-text-field", @placeholder = "Input Email Here", @autocomplete = "off", @required = "on" })
+                        @*<input type="text" name="email" id="emailAC" class="hm-col-text-field" placeholder="Input Email Here" />*@
+                    </div>
+                </div>
+                <div class="hm-reg-row-form">
+                    <div class="hm-reg-form-col">
+                        <label>Handphone</label><br>
+                        @Html.TextBox("phoneAC", null, new { id = "phoneAC", @class = "hm-col-text-field", @placeholder = "+62 XXXX XXXX XXXX", @autocomplete = "off", @required = "on" })
+                        @*<input type="text" name="phone" id="phoneAC" class="hm-col-text-field" placeholder="+62 XXXX XXXX XXXX" />*@
+                    </div>
+                    <div class="hm-reg-form-col">
+                        <label>Password</label><br>
+                        @Html.TextBox("passwordAC", null, new { id = "passwordAC", @class = "hm-col-text-field", @placeholder = "Input Password Here", @autocomplete = "off", @required = "on" })
+                        @*<input type="password" name="password" id="passwordAC" class="hm-col-text-field" placeholder="Input Password Here" />*@
+                    </div>
+                </div>
+                <div class="hm-reg-row-form button-area"><button id="RegisterChecker" onclick="SaveAccount()"> Create Account</button></div>
+            </form>
+        </div>
+    </div>
+</div>

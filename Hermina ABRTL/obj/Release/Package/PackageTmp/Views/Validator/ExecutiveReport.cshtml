@@ -1,0 +1,57 @@
+﻿@model Hermina_ABRTL.ViewModel.ValidatorVM
+
+@if (TempData["Message"] != null)
+{
+    <script>
+        alert("@TempData["Message"]");
+    </script>
+}
+<div class="hm-layout">
+    <div class="hm-row hm-tble-account">
+        <h2 class="hm-title-exp">Excecutive Report Checklist Rumah Sakit</h2>
+        <div class="hm-lay-sm">
+            @foreach (var pr in Model.ListPeriode) { <div class="VisibleRound valuePeriodeLtVal" data-periodecheck="@pr.Periode"></div> }
+            @foreach (var data in Model.ValidasiVal) { <div class="VisibleRound valuePeriodeVal" data-periodecheck="@data.Periode" data-idrscheck="@data.IDRS" data-roundcheck="@data.Round"></div> }
+            @*@foreach (var rs in Model.ListRS) { <div class="VisibleRound valueRS" data-rs="@rs.IDRS"></div> }*@
+            <div class="hm-row hm-pdd-rs">
+                <div class="hm-hlf-col hm-val-prd"><select id="hmValPeriodeSlectd"><option value="">-- Select Periode --</option></select></div>
+                <div class="hm-hlf-col hm-val-prd" style="display:none"><label>Periode Now : <span id="DateNameNow"></span></label></div>
+            </div>
+            <div class="hm-row">
+                <div class="hm-row hm-head-acc-style hm-head-lay-style">Region</div>
+                <div class="hm-row hm-body-lay">
+                    @foreach (var data in Model.ListRegion)
+                    {
+                        <div class="hm-row hm-body-main-style">
+                            <div class="hm-col-lay-1 hm-col-lay-style">@data.Region</div>
+                            <div class="hm-col-lay-2 hm-col-lay-style"><span id="@data.Region" onclick="Region(this.id)">View RS</span></div>
+                            <div class="hm-row hm-panel-lyt" id="Panel_@data.IDRegion">
+                                <div class="hm-row hm-head-reg-panel">
+                                    <div class="hm-col-headrsnm hm-col-head-panel">Nama Rumah Sakit</div>
+                                    <div class="hm-col-headr hm-col-head-panel">Round</div>
+                                </div>
+                                <div class="hm-row hm-body-reg-panel">
+                                    @foreach (var rs in Model.ListRS)
+                                    {
+                                        if (data.Region == rs.Region)
+                                        {
+                                            <div class="hm-row hm-list-rs">
+                                                <div class="hm-col-b-pnel-1 hm-col-b-style">@rs.NamaRS</div>
+                                                <div class="hm-col-b-pnel-2 hm-col-b-style" id="GtPeriod" data-round="Round 1" data-idrs="@rs.IDRS" onclick="GetExePort(this)">Round 1</div>
+                                                <div class="hm-col-b-pnel-3 hm-col-b-style" id="GtPeriod" data-round="Round 2" data-idrs="@rs.IDRS" onclick="GetExePort(this)">Round 2</div>
+                                                <div class="hm-col-b-pnel-4 hm-col-b-style" id="GtPeriod" data-round="Round 3" data-idrs="@rs.IDRS" onclick="GetExePort(this)">Round 3</div>
+                                                <div class="hm-col-b-pnel-5 hm-col-b-style" id="GtPeriod" data-round="Round 4" data-idrs="@rs.IDRS" onclick="GetExePort(this)">Round 4</div>
+
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/ValPerio.js"></script>

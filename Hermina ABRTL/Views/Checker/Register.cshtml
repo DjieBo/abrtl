@@ -1,0 +1,74 @@
+﻿@model Hermina_ABRTL.ViewModel.RegisterCheckerVM
+
+<div class="hm-reg-notif" id="regNotif">
+    <div class="hm-reg-modal">
+        <div class="hm-reg-info">
+            <h4>Success!</h4>
+            <p>Data anda sudah tersimpan</p>
+            <p>dalam sistem</p>
+        </div>
+        <div class="hm-reg-back">
+            <span onclick="BacktoLayout()"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to Previous Page</span>
+        </div>
+    </div>
+</div>
+    
+<div class="hm-reg-layout">
+    <div class="hm-reg">
+        <h2>Register Account <br> Management ABRTL-RL</h2>
+        <div class="hm-reg-form">
+            <form method="post" id="formregister">
+                <div class="hm-reg-row-form">
+                    <div class="hm-reg-form-col">
+                        <label>Province</label><br>
+                        @Html.TextBoxFor(x => x.province, new { id = "province", @class = "hm-col-text-field", @placeholder = "Provinsi", @readonly = "true" })
+                    </div>
+                    <div class="hm-reg-form-col">
+                        <label>Region</label><br>
+                        @Html.TextBoxFor(x => x.kota, new { id = "kota", @class = "hm-col-text-field", @placeholder = "Kota", @readonly = "true" })
+                    </div>
+                </div>
+                <div class="hm-reg-row-form">
+                    <div class="hm-reg-form-col">
+                        <label>Parameter</label><br>
+                        @Html.TextBoxFor(x => x.parameter, new { id = "parameter", @class = "hm-col-text-field", @placeholder = "IDRS", @readonly = "true" })
+                    </div>
+                    <div class="hm-reg-form-col">
+                        <label>Position</label><br>
+                        @Html.DropDownList("position", new List<SelectListItem>
+                                    {
+                                        new SelectListItem{ Text="Position", Value = "" },
+                                        new SelectListItem{ Text="Wakil Direktur", Value = "Verifikator 1" },
+                                        new SelectListItem{ Text="Direktur", Value = "Verifikator 2" },
+                                    }, new { @required = "on", id = "position", @placeholder = "Select position" })
+                    </div>
+                </div>
+                <div class="hm-reg-row-form">
+                    <label>Name</label><br>
+                    @Html.TextBox("name", null, new { id = "name", @style = "width:95%;padding:2% 3%;", @placeholder = "Input your name", @autocomplete = "off", @required = "on" })
+                </div>
+                <div class="hm-reg-row-form">
+                    <div class="hm-reg-form-col">
+                        <label>NIK</label><br>
+                        @Html.TextBox("nik", null, new { id = "nik", @class = "hm-col-text-field", @placeholder = "ID 93034 XXXX XXXX", @autocomplete = "off", @required = "on" })
+                    </div>
+                    <div class="hm-reg-form-col">
+                        <label>Email</label><br>
+                        @Html.TextBox("email", null, new { id = "email", @class = "hm-col-text-field", @placeholder = "Input Email Here", @autocomplete = "off", @required = "on" })
+                    </div>
+                </div>
+                <div class="hm-reg-row-form">
+                    <div class="hm-reg-form-col">
+                        <label>Handphone</label><br>
+                        @Html.TextBox("phone", null, new { id = "phone", @class = "hm-col-text-field", @placeholder = "+62 XXXX XXXX XXXX", @autocomplete = "off", @required = "on" })
+                    </div>
+                    <div class="hm-reg-form-col">
+                        <label>Password</label><br>
+                        @Html.TextBox("password", null, new { id = "password", @class = "hm-col-text-field", @placeholder = "Input Password Here", @autocomplete = "off", @required = "on" })
+                    </div>
+                </div>
+                <div class="hm-reg-row-form button-area"><button id="Register" onclick="RegisterAccount()"> Create Account</button></div>
+            </form>
+        </div>
+    </div>
+</div>

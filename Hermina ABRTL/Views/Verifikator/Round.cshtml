@@ -1,0 +1,70 @@
+﻿@model Hermina_ABRTL.ViewModel.RABListVM
+
+@if (TempData["Message"] != null)
+{
+    <script>
+        alert("@TempData["Message"]");
+    </script>
+}
+
+<div class="hm-layout">
+    <h2>Select Round <span id="tanggal"></span></h2>
+    @foreach (var a in Model.listCheckerVal)
+    {
+        <span class="VisibleRound RoundVerValidation"
+              data-periode="@a.Periode"
+              data-round="@a.Round"
+              data-statuschecker="@a.StatusChecker"
+              data-status1="@a.Status1"
+              data-status2="@a.Status2"
+              data-onloginverifikator="@Model.Akses"></span>
+    }
+    <div class="hm-row">
+        <div class="hm-col-round">
+            <div class="hm-list-round" id="VBtn1">
+                <div class="hm-stat-round inactived hm-vstat-round" id="VStatus1"> <font> Round 1 </font><span id="VInfoStatus1">- Status Inactive</span></div>
+                <div class="hm-main-round">
+                    <div id="Info1" class="hm-info-round">
+                        <p class="infoInActive">This round status<br><font>is inactive</font></p>
+                    </div>
+                </div>
+            </div>
+            <div class="hm-list-round" id="VBtn2">
+                <div class="hm-stat-round inactived hm-vstat-round" id="VStatus2"><font> Round 2 </font><span id="VInfoStatus2">- Status Inactive</span></div>
+                <div class="hm-main-round">
+                    <div id="Info2" class="hm-info-round">
+                        <p class="infoInActive">This round status<br><font>is inactive</font></p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="hm-list-round" id="VBtn3">
+                <div class="hm-stat-round inactived hm-vstat-round" id="VStatus3"><font> Round 3 </font><span id="VInfoStatus3">- Status Inactive</span></div>
+                <div class="hm-main-round">
+                    <div id="Info3" class="hm-info-round">
+                        <p class="infoInActive">This round status<br><font>is inactive</font></p>
+                    </div>
+                </div>
+            </div>
+            <div class="hm-list-round" id="VBtn4">
+                <div class="hm-stat-round inactived hm-vstat-round" id="VStatus4"><font> Round 4 </font><span id="VInfoStatus4">- Status Inactive</span></div>
+                <div class="hm-main-round">
+                    <div id="Info4" class="hm-info-round">
+                        <p class="infoInActive">This round status<br><font>is inactive</font></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hm-col-time">
+            <div class="hm-time-info">
+                <h4>Executive Report</h4>
+                <p>Periode <span id="MonthDrip"></span> <i class="far fa-clock"></i></p>
+            </div>
+            <div class="hm-row hm-info-text">
+                <p>This Period will be reset automate every 7 days after the deadline submit</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/VerifikatorTime.js"></script>

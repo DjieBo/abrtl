@@ -1,0 +1,119 @@
+﻿@model Hermina_ABRTL.ViewModel.ExtReportRABVM
+
+<div class="hm-layout screen-page">
+    <div class="hm-row hm-rab-layout ">
+        <div class="hm-row hm-nav-back hm-lh-back">
+            <span class="backtoForm" onclick="BacktoReportSPK('@Model.Periode')"><i class="fas fa-chevron-left"></i> Back to previous page</span>
+            @*<div class="VisibleRound StatusAppValidator" data-status1="@Model.Approve1" data-status2="@Model.Approve2" data-status3="@Model.Approve3" data-onlog="@Model.UserOnLogin"></div>*@
+        </div>
+        <div class="hm-expport">
+            <h3>Job Report @Model.NamaRS @Model.Round <span id="PeriodeValidatorSPK">@Model.Periode</span></h3>
+            <div class="hm-expport-main" style="border:none">
+                <div class="hm-row hm-rabform">
+                    <div class="hm-row hm-rab-head">
+                        <div class="hm-rab-col-1 hm-rab-head-style">SubArea</div>
+                        <div class="hm-rab-col-2 hm-rab-merge-style">Item<br>Material</div>
+                        <div class="hm-rab-col-3 hm-rab-head-style">Penilaian</div>
+                        <div class="hm-rab-col-4 hm-rab-head-style">Nilai</div>
+                        <div class="hm-rab-col-5 hm-rab-head-style">Keterangan</div>
+                        <div class="hm-rab-col-10 hm-rab-merge-style">Batasan<br>Biaya</div>
+                        <div class="hm-rab-col-11 hm-rab-head-style">Biaya</div>
+                        <div class="hm-rab-col-12 hm-rab-head-style">Selisih</div>
+                        <div class="hm-rab-col-13 hm-rab-merge-style">Picture (Before)</div>
+                        <div class="hm-rab-col-13 hm-rab-merge-style">Picture (After)</div>
+                    </div>
+                    <div class="hm-row hm-rab-body">
+                        <div class="hm-rab-list">
+                            @foreach (var a in Model.listData)
+                            {
+                                var pn = a.Penilaian.Length;
+                                var itm = a.Item.Length;
+                                var kt = a.Keterangan.Length;
+                                var node = "..";
+                                <input type="hidden" name="idSPK" id="IDSPK" value="@a.ID" />
+                                <div class="hm-rab-col-1 hm-spk-font hm-rab-body-style">@a.SubArea</div>
+                                <div class="hm-rab-col-2 hm-spk-font hm-rab-body-style hm-rab-alg-center">
+                                    @if (itm < 17)
+                                    {@a.Item }
+                                else if (itm >= 17)
+                                {
+                                    var subItm = a.Item.Substring(0, 17); @subItm}
+                                </div>
+                                <div class="hm-rab-col-3 hm-spk-font hm-rab-body-style">
+                                    @if (pn < 20)
+                                    {@a.Penilaian }
+                                else if (pn >= 20)
+                                {
+                                    var subPn = a.Penilaian.Substring(0, 20); @subPn @node}
+                                </div>
+                                <div class="hm-rab-col-4 hm-spk-font hm-rab-body-style hm-rab-alg-center">@a.Nilai</div>
+                                <div class="hm-rab-col-5 hm-spk-font hm-rab-body-style">
+                                    @if (kt < 17)
+                                    {@a.Keterangan }
+                                else if (kt > 17)
+                                {
+                                    var subKT = a.Keterangan.Substring(0, 17); @subKT @node;
+                                }
+                                </div>
+                                <div class="hm-rab-col-10 hm-spk-font hm-rab-body-style hm-rab-alg-right">@a.HargaDasar</div>
+                                <div class="hm-rab-col-11 hm-spk-font hm-rab-body-style hm-rab-alg-right">@a.HargaInput</div>
+                                <div class="hm-rab-col-12 hm-spk-font hm-rab-body-style hm-rab-alg-right">@a.SelisihHarga</div>
+                                <div class="hm-rab-col-13 hm-rab-symbol-style hm-rab-alg-center"><a class="hm-image-view" id="Image@(a.ID)" href="@Url.Action("BRABImage", "Validator", new { ID = a.ID, Round = a.Round, Periode = a.Periode, IDRS = Model.IDRS})" target="_blank"><i class="fas fa-image"></i></a></div>
+                                <div class="hm-rab-col-13 hm-rab-symbol-style hm-rab-alg-center hm-spk-cam">
+                                    @if (a.PictureAf != null && a.PictureAf != "")
+                                    {<a class="hm-image-view" id="ImageAf@(a.ID)" href="@Url.Action("SPKImage", "Validator", new { IDUnix = a.IDUnix, Round = a.Round, Periode = a.Periode, IDRS = Model.IDRS})" target="_blank">
+                                            <i class="fas fa-image"></i>
+                                        </a>}
+                                    else{ <i class="far fa-window-close"></i>}
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hm-btn-export">
+            <div class="hm-row">
+                @Html.ActionLink("Job Report", "SPKVPdf", new { IDRS = Model.IDRS, NamaRS = Model.NamaRS, Round = Model.Round, Periode = Model.Periode }, new { @class = "hm-print-btn hm-spc-btn", id = "printPDFRAB", @target = "_blank"})
+                <button class="hm-print-btn hm-spc-btn" onclick="BacktoReportSPK('@Model.Periode')">Back to Report</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let TxtPeriode = document.getElementById("PeriodeValidatorSPK").textContent;
+    let Bln = parseInt(TxtPeriode.slice(-2));
+    let Thn = TxtPeriode.substring(0, 4);
+    const monthNames = ["", "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+    let BulanSPKVal = monthNames[Bln];
+    let NmBln = BulanSPKVal + " " + Thn;
+    document.getElementById("PeriodeValidatorSPK").innerHTML = NmBln;
+
+    function BacktoReportSPK(periode) {
+        $('ul.nav-left li').removeClass("live");
+        $('#SPK').addClass("live");
+        $.ajax({
+            url: "/Validator/SPK",
+            type: "GET",
+            success: function (result) {
+                $('#VldtrLayout').html(result);
+                var monthNames = ["January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"
+                ];
+                let Yrs = periode.substring(0, 4);
+                let DateChange = monthNames[parseInt(periode.substring(6, 4) - 1)] + " " + Yrs;
+                $("#SPKDateNow").text(DateChange);
+                let getField = document.querySelectorAll("#SPKRnd");
+                for (let i = 0; i < getField.length; i++) {
+                    getField[i].setAttribute("data-periode", periode);
+                }
+                let SelectOption = document.querySelector("#SPKSelectPeriode option[value='']");
+                SelectOption.setAttribute("value", periode);
+                SelectOption.innerHTML = DateChange;
+            }
+        });
+    }
+</script>

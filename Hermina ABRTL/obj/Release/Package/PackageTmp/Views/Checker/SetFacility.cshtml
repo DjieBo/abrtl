@@ -1,0 +1,99 @@
+﻿@model Hermina_ABRTL.ViewModel.FacilityVM
+
+<header>
+    <div class="hm-header-label hm-header-style">
+        <h3>Checker</h3>
+        <span>Kemayoran</span>
+    </div>
+    <div class="hm-header-navigator hm-header-style">
+        <ul class="nav-left"></ul>
+        <ul class="hm-nav-right">
+            <li onclick="Logout()">Log out</li>
+        </ul>
+    </div>
+</header>
+
+<section>
+    <div class="hm-layout">
+        <h3>Set Facility Table Data Dinamis</h3>
+        <div class="hm-row hm-tble-list">
+            <div class="hm-table-fac">
+                <div class="hm-head-table">
+                    <div class="hm-col-fac-style hm-col-fac-1">Round Area</div>
+                    <div class="hm-col-fac-style hm-col-fac-2">Area</div>
+                    <div class="hm-col-fac-style hm-col-fac-3">Sub Area</div>
+                    <div class="hm-col-fac-style hm-col-fac-4">Type</div>
+                    <div class="hm-col-fac-style hm-col-fac-5">Option</div>
+                    <div class="hm-col-fac-style hm-col-fac-6">Room</div>
+                </div>
+                <div class="hm-body-table hm-body-table-style" id="tableData">
+                    @foreach (var data in Model.DataRoundArea)
+                    {
+                        <div class="hm-row-list">
+                            <div class="hm-col-facb-style hm-col-fach-right hm-col-facb-1" onclick="RAFacility(this.id)" id="clc@(data.IDRoundArea)">@data.RoundArea</div>
+                            @foreach (var area in Model.DataArea) {
+                                if (data.IDRoundArea == area.IDRoundArea) {
+                                    if(area.IDArea == "A052") { 
+                                        <div class="hm-col-cacb-style hm-col-fach-mid hm-col-facb-2" id="@area.IDRoundArea"><div class="hm-col-row-chil hm-area-child" id="clc@(area.IDArea)">@area.Area <input type="checkbox" class="hm-get-fac" value="@area.IDArea" name="Area" /></div></div>
+                                    } else {
+                                        <div class="hm-col-cacb-style hm-col-fach-mid hm-col-facb-2" id="@area.IDRoundArea"><div class="hm-col-row-chil hm-area-child" onclick="AFacility(this.id)" id="clc@(area.IDArea)">@area.Area</div></div>
+                                    }
+                                    <div class="hm-col-cacb-style hm-col-fach-mid hm-col-facb-3">
+                                    @foreach (var subareanull in Model.DataSubAreaTypeNull) {
+                                        if (area.IDArea == subareanull.IDArea) {
+                                            <div id="@subareanull.IDArea"><div class="hm-col-row-chil hm-subarea-child" id="clc@(subareanull.IDSubArea)">@subareanull.SubArea <input type="checkbox" class="hm-get-fac" value="@subareanull.IDSubArea" name="SubArea" /></div></div>
+                                        }
+                                    }
+                                    @foreach (var subarea in Model.DataSubAreaTypeNNull) {
+                                        if (area.IDArea == subarea.IDArea) {
+                                            <div id="@subarea.IDArea" class="hm-sty-facb-3 hmfrm@(subarea.IDSubArea)"><div class="hm-col-row-chil hm-subarea-child" onclick="SAFacility(this.id)" id="clc@(subarea.IDSubArea)">@subarea.SubArea</div></div>
+                                            <div class="hm-col-cacb-style hm-col-fach-mid hm-col-facb-4">
+                                                @foreach (var type in Model.DataTypeNNull) {
+                                                    if (subarea.IDSubArea == type.IDSubArea) {
+                                                        <div id="@type.IDSubArea" class="block-inrow hm-type-frm hmfrm@(type.IDType)">
+                                                        @foreach (var option in Model.DataOptionNull) {
+                                                            if (type.IDType == option.IDType) {
+                                                                <div class="hm-col-row-chil hm-type-child" id="clc@(type.IDType)">@type.Type <input type="checkbox" class="hm-get-fac" value="@type.IDType" name="Type" /></div>
+                                                            }
+                                                        }
+                                                        @foreach (var noption in Model.DataOptionNNull) {
+                                                            if (type.IDType == noption.IDType) {
+                                                                <div class="hm-col-row-chil hm-typ-brdr" onclick="TFacility(this.id)" id="clc@(type.IDType)">@type.Type </div>
+                                                                <div class="hm-col-cacb-style hm-col-fach-mid hm-col-facb-5">
+                                                                    @foreach (var option in Model.DataOptionNNull) {
+                                                                        if (noption.IDOption == option.IDOption) {
+                                                                            if (option.OptionArea == "Ruang") {
+                                                                                <div id="@option.IDType"><div class="hm-col-row-chil hm-option-child" >Jmlh @option.OptionArea  <input type="text" class="hm-get-fac hm-rm-inp" onkeypress="OPRoomPres(this.id)" id="room@(option.IDType)" autocomplete="off"/><div id="lyt@(option.IDType)"></div> </div></div>
+                                                                            } else if (option.OptionArea == "Lantai") {
+                                                                                <div id="@option.IDType">
+                                                                                    <div id="flr@(option.IDType)"></div>
+                                                                                    <div class="hm-col-row-chil hm-option-child" onclick="ADFacility(this.id)" id="Add@(option.IDType)">Add Lantai </div>
+                                                                                    <div class="hm-col-cacb-style hm-col-fach-left hm-col-facb-6">
+                                                                                        <div id="rm@(option.IDType)"></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                </div>
+                                                            }
+                                                        }
+                                                        </div>
+                                                    }
+                                                }
+                                            </div>
+                                        }
+                                    }
+                                    </div>
+                                }
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="hm-fac-btn">
+            <button id="save" onclick="SetFacilitySave()"> Save </button>
+        </div>
+    </div>
+</section>

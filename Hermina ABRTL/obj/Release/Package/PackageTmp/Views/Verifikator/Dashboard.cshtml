@@ -1,0 +1,336 @@
+﻿@model Hermina_ABRTL.ViewModel.DashboardVM
+
+<!------- Pie ------->
+<script>
+    var Round1 = [];
+    var Round2 = [];
+    var Round3 = [];
+    var Round4 = [];
+    @foreach (var item in Model.DataNilaiR1)
+    { 
+        @:Round1.push(@item);
+    }
+    @foreach (var item in Model.DataNilaiR2)
+    {
+        @:Round2.push(@item);
+    }
+    @foreach (var item in Model.DataNilaiR3)
+    { 
+        @:Round3.push(@item);
+    }
+    @foreach (var item in Model.DataNilaiR4)
+    {
+        @:Round4.push(@item);
+    }
+    $(document).ready(function () {
+        var DataRound1 = {
+            series: Round1,
+            chart: { type: 'pie', },
+            labels: ['Pembersihan', 'Perbaikan', 'Penggantian'],
+            responsive: [{ breakpoint: 480, }],
+            colors: ['#019443', '#FFC701', '#0D9CDA'],
+        };
+        var chartRound1 = new ApexCharts(document.querySelector("#Pie1"), DataRound1);
+        chartRound1.render();
+
+        var DataRound2 = {
+            series: Round2,
+            chart: { type: 'pie', },
+            labels: ['Pembersihan', 'Perbaikan', 'Penggantian'],
+            responsive: [{ breakpoint: 480, }],
+            colors: ['#019443', '#FFC701', '#0D9CDA'],
+        };
+        var chartRound2 = new ApexCharts(document.querySelector("#Pie2"), DataRound2);
+        chartRound2.render();
+
+        var DataRound3 = {
+            series: Round3,
+            chart: { type: 'pie', },
+            labels: ['Pembersihan', 'Perbaikan', 'Penggantian'],
+            responsive: [{ breakpoint: 480, }],
+            colors: ['#019443', '#FFC701', '#0D9CDA'],
+        };
+        var chartRound3 = new ApexCharts(document.querySelector("#Pie3"), DataRound3);
+        chartRound3.render();
+
+        var DataRound4 = {
+            series: Round4,
+            chart: { type: 'pie', },
+            labels: ['Pembersihan', 'Perbaikan', 'Penggantian'],
+            responsive: [{ breakpoint: 480, }],
+            colors: ['#019443', '#FFC701', '#0D9CDA'],
+        };
+        var chartRound4 = new ApexCharts(document.querySelector("#Pie4"), DataRound4);
+        chartRound4.render();
+    });
+</script>
+<!------- End Pie ------->
+<!------- Bar ------->
+<script>
+    $(document).ready(function () {
+        var progress = [];
+        @foreach (var item in Model.PersenDataRound)
+        {
+            var Num = Math.Round(item, 2);
+            @:progress.push(@Num);
+        }
+        var options = {
+            series: [{ name: 'Proses', data: progress }],
+            chart: { type: 'bar', height: 350 },
+            plotOptions: { bar: { columnWidth: '40%' }, },
+            dataLabels: { enabled: false },
+            yaxis: { title: { text: 'Tingkat Proses' }, min: 0, max: 100   },
+            xaxis: { categories: ['Round 1', 'Round 2', 'Round 3', 'Round 4'], },
+            tooltip: {
+                y: {
+                    formatter: function (val) {
+                        return "" + val + " %"
+                    }
+                }
+            }
+        };
+        var chart = new ApexCharts(document.querySelector("#bar"), options);
+        chart.render();
+    });
+</script>
+<!------- End Bar ------->
+<!------- Line ------->
+<script>
+    var Nilai = [];
+    var Bulan = [];
+    @foreach (var item in Model.dtLine)
+    {
+        var NilaiAkum = Math.Round(item.Akumulasi, 2);
+        @:Nilai.push(@NilaiAkum);
+        @:Bulan.push("@item.Periode");
+    }
+    //console.log(Nilai);
+    //console.log(Bulan);
+    $(document).ready(function () {
+        var options = {
+            series: [{
+                name: "Progress",
+                data: Nilai
+            }],
+            chart: { height: 350, type: 'line', zoom: { enabled: false } },
+            dataLabels: { enabled: false },
+            grid: { row: { colors: ['#f3f3f3', 'transparent'], opacity: 0.5 }, },
+            xaxis: { categories: Bulan, },
+            colors: ['#019443'],
+            yaxis: { min: 70, max: 100 },
+            tooltip: {
+                y: {
+                    formatter: function (val) {
+                        return "" + val + " %"
+                    }
+                }
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#line"), options);
+        chart.render();
+    });
+</script>
+<!------- End Line ------->
+<!------- Coloumn ------->
+<script>
+    var Param1 = [];
+    var Param2 = [];
+    var Param3 = [];
+    var Param4 = [];
+    //=================================
+    @foreach (var item in Model.DataParamR1)
+    {
+        @:Param1.push(@item);
+    }
+    @foreach (var item in Model.DataParamR2)
+    {
+        @:Param2.push(@item);
+    }
+    @foreach (var item in Model.DataParamR3)
+    {
+        @:Param3.push(@item);
+    }
+    @foreach (var item in Model.DataParamR4)
+    {
+        @:Param4.push(@item);
+    }
+    var TotalPar1 = Param1.reduce((a, b) => a + b, 0);
+    var TotalPar2 = Param2.reduce((a, b) => a + b, 0);
+    var TotalPar3 = Param3.reduce((a, b) => a + b, 0);
+    var TotalPar4 = Param4.reduce((a, b) => a + b, 0);
+    //--------------
+    var SumAman1 = (Param1[0] / TotalPar1) * 100
+    var SumBersih1 = (Param1[1] / TotalPar1) * 100
+    var SumBaru1 = (Param1[2] / TotalPar1) * 100
+    var SumRapih1 = (Param1[3] / TotalPar1) * 100
+    var SumRL1 = (Param1[4] / TotalPar1) * 100
+
+    var SumAman2 = (Param2[0] / TotalPar2) * 100
+    var SumBersih2 = (Param2[1] / TotalPar2) * 100
+    var SumBaru2 = (Param2[2] / TotalPar2) * 100
+    var SumRapih2 = (Param2[3] / TotalPar2) * 100
+    var SumRL2 = (Param2[4] / TotalPar2) * 100
+
+    var SumAman3 = (Param3[0] / TotalPar3) * 100
+    var SumBersih3 = (Param3[1] / TotalPar3) * 100
+    var SumBaru3 = (Param3[2] / TotalPar3) * 100
+    var SumRapih3 = (Param3[3] / TotalPar3) * 100
+    var SumRL3 = (Param3[4] / TotalPar3) * 100
+
+    var SumAman4 = (Param4[0] / TotalPar4) * 100
+    var SumBersih4 = (Param4[1] / TotalPar4) * 100
+    var SumBaru4 = (Param4[2] / TotalPar4) * 100
+    var SumRapih4 = (Param4[3] / TotalPar4) * 100
+    var SumRL4 = (Param4[4] / TotalPar4) * 100
+    //--------------
+    var AmanR1 = SumAman1.toFixed(2);
+    var BersihR1 = SumBersih1.toFixed(2);
+    var BaruR1 = SumBaru1.toFixed(2);
+    var RapihR1 = SumRapih1.toFixed(2);
+    var RLR1 = SumRL1.toFixed(2);
+
+    var AmanR2 = SumAman2.toFixed(2);
+    var BersihR2 = SumBersih2.toFixed(2);
+    var BaruR2 = SumBaru2.toFixed(2);
+    var RapihR2 = SumRapih2.toFixed(2);
+    var RLR2 = SumRL2.toFixed(2);
+
+    var AmanR3 = SumAman3.toFixed(2);
+    var BersihR3 = SumBersih3.toFixed(2);
+    var BaruR3 = SumBaru3.toFixed(2);
+    var RapihR3 = SumRapih3.toFixed(2);
+    var RLR3 = SumRL3.toFixed(2);
+
+    var AmanR4 = SumAman4.toFixed(2);
+    var BersihR4 = SumBersih4.toFixed(2);
+    var BaruR4 = SumBaru4.toFixed(2);
+    var RapihR4 = SumRapih4.toFixed(2);
+    var RLR4 = SumRL4.toFixed(2);
+    //=========================================
+    var Aman = new Array(AmanR1, AmanR2, AmanR3, AmanR4);
+    var Bersih = new Array(BersihR1, BersihR2, BersihR3, BersihR4);
+    var Baru = new Array(BaruR1, BaruR2, BaruR3, BaruR4);
+    var Rapih = new Array(RapihR1, RapihR2, RapihR3, RapihR4);
+    var RL = new Array(RLR1, RLR2, RLR3, RLR4);
+    $(document).ready(function () {
+        var options = {
+            series: [{
+                name: 'Aman',
+                data: Aman
+            }, {
+                name: 'Bersih',
+                data: Bersih
+            }, {
+                name: 'Tampak Baru',
+                data: Baru
+            }, {
+                name: 'Rapih',
+                data: Rapih
+            }, {
+                name: 'Ramah Lingkungan',
+                data: RL
+            }],
+            chart: { type: 'bar', height: 350 },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '55%',
+                    endingShape: 'rounded'
+                },
+            },
+            dataLabels: { enabled: false },
+            stroke: { show: true, width: 2, colors: ['transparent'] },
+            xaxis: { categories: ['Round 1', 'Round 2', 'Round 3', 'Round 4'], },
+            yaxis: { title: { text: 'Tingkat Proses' }, min: 0, max: 100   },
+            fill: { opacity: 1 },
+            tooltip: { y: { formatter: function (val) { return "" + val + "%" } } },
+            colors: ['#019443', '#0D9CDA', '#FFC701', '#FF39BC', '#7F1BFF'],
+        };
+
+        var chart = new ApexCharts(document.querySelector("#coloumn"), options);
+    chart.render();
+    });
+</script>
+<!------- End Coloumn ------->
+<!------- Pie Progress Value ------->
+<script>
+    $(document).ready(function () {
+        var options = {
+            series: [20, 80],
+            chart: { type: 'pie', },
+            labels: ['Selesai', 'TIdak Selesai'],
+            responsive: [{ breakpoint: 480, }],
+            colors: ['#019443', '#FFC701'],
+        };
+
+        var chart = new ApexCharts(document.querySelector("#proval1"), options);
+        chart.render();
+    });
+</script>
+<!------- End Pie Progress Value ------->
+<!---============== End Dashboard ===================-->
+<div class="hm-layout">
+    <div class="hm-row hm-dash-margn">
+        <div class="hm-row cm-spcg-dash">
+            <h3>Hasil Nilai Round <span id="DashboardDate"></span></h3>
+            <div class="hm-row">
+                <div class="hm-com-pie hm-com-pie-left">
+                    <h4>Round 1</h4>
+                    <div id="Pie1"></div>
+                </div>
+                <div class="hm-com-pie hm-com-pie-mid">
+                    <h4>Round 2</h4>
+                    <div id="Pie2"></div>
+                </div>
+                <div class="hm-com-pie hm-com-pie-mid">
+                    <h4>Round 3</h4>
+                    <div id="Pie3"></div>
+                </div>
+                <div class="hm-com-pie hm-com-pie-right">
+                    <h4>Round 4</h4>
+                    <div id="Pie4"></div>
+                </div>
+            </div>
+        </div>
+        <div class="hm-row cm-spcg-dash">
+            <h3>Progress Checker <span id="PorgDashboardDate"></span></h3>
+            <div class="hm-row hm-row-bar">
+                <div id="bar"></div>
+            </div>
+        </div>
+        <div class="hm-row cm-spcg-dash">
+            <h3>Nilai Pencapaian Rumah Sakit Tahun <span id="DashboardYear"></span></h3>
+            <div class="hm-row hm-row-bar">
+                <div id="line"></div>
+            </div>
+        </div>
+        <div class="hm-row cm-spcg-dash">
+            <h3>Parameter <span id="ParaDashboard"></span></h3>
+            <div class="hm-row hm-row-bar">
+                <div id="coloumn"></div>
+            </div>
+        </div>
+        <div class="hm-row cm-spcg-dash">
+            <h3>Hasil Pekerjaan Penggantian dan Perbaikan <span id="ValueDashboardDate"></span></h3>
+            <div class="hm-row">
+                <div class="hm-com-pie hm-com-pie-left">
+                    <h4>Round 1</h4>
+                    <div id="proval1"></div>
+                </div>
+                <div class="hm-com-pie hm-com-pie-mid">
+                    <h4>Round 2</h4>
+                    @*<div id="chart"></div>*@
+                </div>
+                <div class="hm-com-pie hm-com-pie-mid">
+                    <h4>Round 3</h4>
+                    @*<div id="chart"></div>*@
+                </div>
+                <div class="hm-com-pie hm-com-pie-right">
+                    <h4>Round 4</h4>
+                    @*<div id="chart"></div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+﻿@model Hermina_ABRTL.ViewModel.RABListVM
+
+<div class="hm-layout">
+    <h2>RAB - Select Round <span id="tanggal"></span></h2>
+    @foreach (var a in Model.listCheck) {
+        <span class="ActRound VisibleRound" 
+              data-periode="@a.Periode" 
+              data-round="@a.Round" 
+              data-statusverifikasi="@a.Status2" 
+              data-status="@a.StatusUmum" 
+              data-nilai1="@a.StatusPenilaian1"></span>
+    }
+    @foreach (var b in Model.listCheck) { <span class="ActRound ApproveConds" data-roundapp="@b.Round" data-appperiod="@b.Periode" data-approve="@b.Approve" data-approvedate="@b.ApproveDate"></span>}
+    <div class="hm-row">
+        <div class="hm-col-round">
+            <div class="hm-list-round" id="RAB1Btn">
+                <div class="hm-main-round">
+                    <h4 id="RABtitle1" class="Minactive">Round 1</h4>
+                    <div id="RAB1info">
+                        <p class="infoInActive">This round status<br><font>is inactive</font></p>
+                    </div>
+                </div>
+                <div class="hm-stat-round inactived" id="RAB1Status"><i id="IconRBA1" class="fa fa-clock-o" aria-hidden="true"></i> <font id="StatInfoRAB1">Status Inactive</font></div>
+            </div>
+            <div class="hm-list-round" id="RAB2Btn">
+                <div class="hm-main-round">
+                    <h4 id="RABtitle2" class="Minactive">Round 2</h4>
+                    <div id="RAB2info">
+                        <p class="infoInActive">This round status<br><font>is inactive</font></p>
+                    </div>
+                </div>
+                <div class="hm-stat-round inactived" id="RAB2Status"><i id="IconRAB2" class="fa fa-clock-o" aria-hidden="true"></i> <font id="StatInfoRAB2">Status Inactive</font></div>
+            </div>
+            <div class="hm-list-round" id="RAB3Btn">
+                <div class="hm-main-round">
+                    <h4 id="RABtitle3" class="Minactive">Round 3</h4>
+                    <div id="RAB3info">
+                        <p class="infoInActive">This round status<br><font>is inactive</font></p>
+                    </div>                    
+                </div>
+                <div class="hm-stat-round inactived" id="RAB3Status"><i id="IconRAB3" class="fa fa-clock-o" aria-hidden="true"></i> <font id="StatInfoRAB3">Status Inactive</font></div>
+            </div>
+            <div class="hm-list-round" id="RAB4Btn">
+                <div class="hm-main-round">
+                    <h4 id="RABtitle4" class="Minactive">Round 4</h4>
+                    <div id="RAB4info">
+                        <p class="infoInActive">This round status<br><font>is inactive</font></p>
+                    </div>
+                </div>
+                <div class="hm-stat-round inactived" id="RAB4Status"><i id="IconRAB4" class="fa fa-clock-o" aria-hidden="true"></i> <font id="StatInfoRAB4">Status Inactive</font></div>
+            </div>
+        </div>
+        <div class="hm-col-time">
+            <div class="hm-time-info">
+                <h4>RAB</h4>
+                <p>Periode <span id="MonthReady"></span> <i class="far fa-clock"></i></p>
+            </div>
+            <div class="hm-row hm-info-text">
+                <p>This Period will be reset automate every 7 days after the deadline submit</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/RABTime.js"></script>

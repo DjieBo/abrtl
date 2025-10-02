@@ -1,0 +1,61 @@
+﻿<script>
+    $(document).ready(function () {
+        var btnStart = document.getElementById("btn-start");
+        var btnCapture = document.getElementById("btn-capture");
+
+        var stream = document.getElementById("stream");
+        var capture = document.getElementById("capture");
+        var snapshot = document.getElementById("snapshot");
+
+        var cameraStream = null;
+
+        btnStart.addEventListener("click", startStreaming);
+        btnCapture.addEventListener("click", captureSnapshot);
+
+        function startStreaming() {
+            var mediaSupport = 'mediaDevices' in navigator;
+            if (mediaSupport && null == cameraStream) {
+                navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+                    .then(function (mediaStream) {
+                        cameraStream = mediaStream;
+                        stream.srcObject = mediaStream;
+                        stream.play();
+                    })
+                    .catch(function (err) {
+                        console.log("Unable to access camera: " + err);
+                    });
+            } else {
+                alert('Your browser does not support media devices.');
+                return;
+            }
+        }
+        function captureSnapshot() {
+            if (null != cameraStream) {
+                var ctx = capture.getContext('2d');
+                var img = new Image();
+                ctx.drawImage(stream, 0, 0, capture.width, capture.height);
+                img.src = capture.toDataURL("image/jpeg");
+                img.width = 1600;
+                img.setAttribute("id", "SPKCapture");
+                snapshot.innerHTML = '';
+                snapshot.appendChild(img);
+            }
+        }
+    });
+</script>
+<div class="hm-col-picture" id="StreamPlace">
+    <div class="hm-row-camera hm-spk-camera"><video id="stream"></video></div>
+    <div class="hm-row-camera"><button id="btn-start" type="button" class="button-camera">Camera Actived</button> <button id="btn-capture" type="button" class="button-camera">Take a photo</button></div>
+</div>
+<div class="hm-col-picture" id="" style="border-left: 1.5px solid #ccc;">
+    <div class="hm-row-camera hm-spk-camera">
+        <div class="hm-camera-save">
+            <canvas id="capture"></canvas>
+            <div id="snapshot"></div>
+        </div>
+    </div>
+    <div class="hm-row-camera">
+        <button id="UploadAfterImage" type="button" class="button-camera">Uploaded</button>
+    </div>
+</div>
+
